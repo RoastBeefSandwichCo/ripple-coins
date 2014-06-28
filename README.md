@@ -27,13 +27,7 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
   - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (TODO: list specific calls) should do.
 
 ## Installation
-## TODO:
- - Note RPC calls which MUST be supported by coin daemon
-   - sendfrom <fromaccount> <tobitcoinaddress> <amount> [minconf=1] [comment] [comment-to]
-   - sendtoaddress <coinaddress> <amount> [comment] [comment-to]
-   - getbalance [account] [minconf=1]	
-   - List is incomplete
-
+ - Install the dependencies. Ripple-lib must be installed globally, I think. No further installation required right now.
 ## Usage
  - During development
    - Ripple-rest must be running. Gatewayd optional unless testing pending_withdrawal/deposits endpoints which are provided to the REST api by gatewayd.
@@ -47,3 +41,10 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
  3. RPC calls to daemon to pay out
  4. Develop listener for coin daemon to watch for deposits. Inform gatewayd.
  5. RPC calls to coin daemon (for withdrawals) or issue IOUs (deposits. Gatewayd handles this. I think. Test.)
+
+## TODO:
+ - Note RPC calls which MUST be supported by coin daemon
+   - sendfrom <fromaccount> <tobitcoinaddress> <amount> [minconf=1] [comment] [comment-to]
+   - sendtoaddress <coinaddress> <amount> [comment] [comment-to]
+   - getbalance [account] [minconf=1]	
+   - List is incomplete
