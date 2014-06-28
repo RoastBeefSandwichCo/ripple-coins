@@ -1,5 +1,12 @@
-//I just can NOT get subscribe to work
-//{"command":"subscribe","olsad":0,"streams":["ledger"]}
+/*This module creates a websocket to listen to the ripple network
+It watches for transactions that may indicate a pending deposit or withdrawal
+It is NOT meant to fully examine them, just to signal when it's probably
+a good idea to check the api for a pending deposit or withdrawal.
+An event-based model instead of polling the api. */
+
+//It may have other uses.
+
+//I just can NOT get subscribe to work so I use request.on
 
 require ("console").log;
 var Remote = require('ripple-lib').Remote;
