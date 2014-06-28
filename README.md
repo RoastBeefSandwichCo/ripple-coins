@@ -34,6 +34,12 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
    - getbalance [account] [minconf=1]	
    - List is incomplete
 
+## Usage
+ - During development
+   - Ripple-rest must be running. Gatewayd optional unless testing pending_withdrawal/deposits endpoints which are provided to the REST api by gatewayd.
+   - Ripple-lib must be installed globally, I think
+   - Node <module being tested>
+
 ##Outline:
  1. Develop efficient way to be notified of pending withdrawals (gatewayd). * DONE. Clean up code.
    - Rather than poll the REST API, connect to a rippled API with a websocket, listen for ledger closes, query REST API. (As far as efficiency goes, it's a bit of a toss-up between "parse all transactions and query API on possible withdrawals/deposits" vs "query API on ledger closer" but this wins the simplicity contest.)
