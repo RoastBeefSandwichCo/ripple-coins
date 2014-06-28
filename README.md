@@ -10,17 +10,20 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 ## Dependencies
 
-1. [Gatewayd](https://github.com/ripple/gatewayd)
+1. [Node.js](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
+  - You should really already have this installed...
+ 
+2. [Gatewayd](https://github.com/ripple/gatewayd)
   - Provides easy deposit and withdrawal management (and endpoints in Ripple REST)
 
-2. [Ripple lib](https://github.com/ripple/ripple-lib)
+3. [Ripple lib](https://github.com/ripple/ripple-lib)
   - Remote is used for listening for transactions
 
-3. [Ripple REST API](https://github.com/ripple/ripple-rest.git)
+4. [Ripple REST API](https://github.com/ripple/ripple-rest.git)
   - Used by gatewayd
   - Used by our modules to retrieve pending deposits and withdrawals
 
-4. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)
+5. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)
   - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (TODO: list specific calls) should do.
 
 ## Installation
