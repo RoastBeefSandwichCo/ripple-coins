@@ -33,6 +33,7 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 ##Outline:
  1. Develop efficient way to be notified of pending withdrawals (gatewayd). * DONE. Clean up code.
    - Rather than poll the REST API, connect to a rippled API with a websocket, listen for ledger closes, query REST API. (As far as efficiency goes, it's a bit of a toss-up between "parse all transactions and query API on possible withdrawals/deposits" vs "query API on ledger closer" but this wins the simplicity contest.)
- 2. Develop listener for coin daemon to watch for deposits. Inform gatewayd.
- 3. Retrieve and parse deposit/withdrawal info from gatewayd (or its REST endpoints) and perform any necessary verification.
- 4. RPC calls to coin daemon (for withdrawals) or issue IOUs (deposits. Gatewayd handles this. I think. Test.)
+ 2. Retrieve and parse withdrawal info from gatewayd (or its REST endpoints) and perform any necessary verification.
+ 3. RPC calls to daemon to pay out
+ 4. Develop listener for coin daemon to watch for deposits. Inform gatewayd.
+ 5. RPC calls to coin daemon (for withdrawals) or issue IOUs (deposits. Gatewayd handles this. I think. Test.)
