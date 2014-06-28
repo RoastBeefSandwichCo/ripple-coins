@@ -29,6 +29,10 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 ## Installation
 ## TODO:
  - Note RPC calls which MUST be supported by coin daemon
+   - sendfrom <fromaccount> <tobitcoinaddress> <amount> [minconf=1] [comment] [comment-to]
+   - sendtoaddress <coinaddress> <amount> [comment] [comment-to]
+   - getbalance [account] [minconf=1]	
+   - List is incomplete
 
 ##Outline:
  1. Develop efficient way to be notified of pending withdrawals (gatewayd). * DONE. Clean up code.
