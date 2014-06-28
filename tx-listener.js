@@ -1,4 +1,9 @@
 /*This module creates a websocket to listen to the ripple network
+It watches for ledger_closes to trigger queries to the REST api for pending deposit or withdrawal
+
+
+//old intro
+/*This module creates a websocket to listen to the ripple network
 It watches for transactions that may indicate a pending deposit or withdrawal
 It is NOT meant to fully examine them, just to signal when it's probably
 a good idea to check the api for a pending deposit or withdrawal.
@@ -40,6 +45,12 @@ request.on('error', function(err) { // Oh, there's the failure handling.
   console.log("CAUSE FUCK YOU! THAT'S WHY!",err);
 });
 
+request.on('ledger_closed', function(res){
+    console.log('Ledger closed!\n',res);
+});
+//After some discussion with Artur Britto, I've opted to just use ledger_close as a trigger for polling the rest api
+//The code below, While more comprehensive, really isn't necessary.
+/*
 request.on('transaction_all', function(res){ //on any transaction in the ripple network (for testing. Not for production)
 //Show some basic info on transactions we see
 console.log('(', withdrawalCount,')', res.transaction.TransactionType,' : ',res.transaction.Account, ' : ', res.engine_result , ' : ' , res.engine_result_message);
@@ -80,12 +91,11 @@ console.log('THATS ME!');
 
 
 });
-
+*/
 /*
 example ledger watch
 request.on('ledger_closed', function(res){
     console.log('doit?',res);
 });
 */
-
 
