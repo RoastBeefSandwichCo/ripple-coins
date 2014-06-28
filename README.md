@@ -29,3 +29,10 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 ## Installation
 ## TODO:
  - Note RPC calls which MUST be supported by coin daemon
+
+##Outline:
+ 1. Develop efficient way to be notified of pending withdrawals (gatewayd).
+   - Rather than poll the REST API, connect to a rippled API with a websocket, listen for possible payments/withdrawals, query REST API.
+ 2. Develop listener for coin daemon to watch for deposits. Inform gatewayd.
+ 3. Parse deposit/withdrawal info from gatewayd (or its REST endpoints) and perform any necessary verification.
+ 4. RPC calls to coin daemon (for withdrawals) or issue IOUs (deposits. Gatewayd handles this. I think. Test.)
