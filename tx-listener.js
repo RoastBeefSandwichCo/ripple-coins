@@ -14,16 +14,10 @@ An event-based model instead of polling the api. */
 //I just can NOT get subscribe to work so I use request.on
 
 require ("console").log;
-var Remote = require('ripple-lib').Remote;
-var withdrawalCount = 0;
 
-accountsRock = 'rLEsXccBGNR3UPuPu2hUXPjziKC3qKSBun'; // a couple of addresses to watch
-accountsMe = 'rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs';
-
-options = {
+var options = {
     trace: false,
-   "accounts"     : [ 'rLEsXccBGNR3UPuPu2hUXPjziKC3qKSBun','rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs' ],  // For subscribe. Never did work.
-    "streams" : ['transaction'],
+    "streams" : ['ledger'],//['transaction'],
     servers :[
         {
                 host : 's1.ripple.com',
@@ -33,9 +27,11 @@ options = {
     ]
 };
 
+var Remote = require('ripple-lib').Remote;
 var remote = new Remote(options);
-var request = remote.connect(options); //connect websocket to server and start listening
 console.log('new remote created');
+var request = remote.connect(options); //connect websocket to server and start listening
+console.log('remote connected');
 
 request.on('success', function(res) { //tell me it worked. Needs failure handling
     console.log("res-success");
@@ -47,10 +43,17 @@ request.on('error', function(err) { // Oh, there's the failure handling.
 
 request.on('ledger_closed', function(res){
     console.log('Ledger closed!\n',res);
+    //CODE GOES HERE
+    //QUERY REST API v1/pending_withdrawals
 });
+
 //After some discussion with Artur Britto, I've opted to just use ledger_close as a trigger for polling the rest api
 //The code below, While more comprehensive, really isn't necessary.
 /*
+var withdrawalCount = 0;
+
+accountsRock = 'rLEsXccBGNR3UPuPu2hUXPjziKC3qKSBun'; // a couple of addresses to watch
+accountsMe = 'rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs';
 request.on('transaction_all', function(res){ //on any transaction in the ripple network (for testing. Not for production)
 //Show some basic info on transactions we see
 console.log('(', withdrawalCount,')', res.transaction.TransactionType,' : ',res.transaction.Account, ' : ', res.engine_result , ' : ' , res.engine_result_message);
