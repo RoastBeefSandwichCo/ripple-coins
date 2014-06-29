@@ -1,21 +1,27 @@
 {
-    [
-        {
+    "CR1" : {
             "coindaemon" : "bitcoind",
             "sendfrom" : "", //default
             "rpcusername" : "rpcuser",
             "rpcpassword" : "rpcpassword",
             "port" : 1234,
             "maxdailypaymenttotal" : 1,
-        },
-        { 
+    },
+    "CR2" : { 
             "coindaemon" : "litecoind",
             "sendfrom" : "", //default
             "rpcusername" : "ltcrpcuser",
             "rpcpassword" : "rpcrpcpassword",
             "port" : 2345,
             "maxdailypaymenttotal" : 1,
-        }
-    ]
+    },
+    "PHC" : {
+            "coindaemon" : "phcoind",
+            "sendfrom" : "",
+            "rpcusername" : "somename",
+            "rpcpassword" : "4fvBAs6aTQVX2cZ19SAqch2XkZnr6by9EZhGudqtyYqf",
+            "port" : 4150,
+            "maxdailypaymenttotal" : 2
+    }
 }
 
