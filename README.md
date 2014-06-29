@@ -4,7 +4,7 @@ ripple-coins
 A collection of Node.js modules to facilitate integration &amp; automation of new coins into a ripple gateway
 
 
-## Ripple Coins - A gatewayd cryptocurrency integration and automation framework
+## Ripple Coins - A universal gatewayd cryptocurrency integration and automation framework
 
   - That sure is a mouthful.
 
