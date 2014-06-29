@@ -26,6 +26,9 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 5. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)
   - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (TODO: list specific calls) should do.
 
+6. [node-bitcoin](https://www.npmjs.org/package/bitcoin)
+  - Greatly simplifies connection and interaction!
+
 ## Installation
  - Install the dependencies. Ripple-lib must be installed globally, I think. No further installation required right now.
 
@@ -38,13 +41,9 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 ##Outline:
  1. Get notified of pending withdrawals (gatewayd). *DONE.
  2. Retrieve and parse withdrawal info from gatewayd (or its REST endpoints) and perform any necessary verification.
- 3. RPC calls to daemon to pay out
+ 3. RPC calls to daemon to pay out *DONE using node-bitcoin
  4. Develop listener for coin daemon to watch for deposits. Inform gatewayd.
  5. RPC calls to coin daemon (for withdrawals) or issue IOUs (deposits. Gatewayd handles this. I think. Test.)
 
 ## TODO:
- - Note RPC calls which MUST be supported by coin daemon
-   - sendfrom <fromaccount> <tobitcoinaddress> <amount> [minconf=1] [comment] [comment-to]
-   - sendtoaddress <coinaddress> <amount> [comment] [comment-to]
-   - getbalance [account] [minconf=1]	
-   - List is incomplete
+ - List unsupported coins
