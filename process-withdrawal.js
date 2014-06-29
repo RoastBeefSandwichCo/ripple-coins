@@ -8,7 +8,7 @@ var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
 //external call instantiates
 function coinProcessing(transaction){
 in constructor, open connections to all coin daemons
-for each property in coins:
+for each object in coins:
 //Should scale to higher loads better than connecting for every tx
     var propertyname = new bitcoin.Client({
       host: 'localhost',
