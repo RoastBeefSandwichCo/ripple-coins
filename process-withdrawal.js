@@ -10,7 +10,7 @@ function coinProcessing(transaction){
 in constructor, open connections to all coin daemons
 for each object in coins:
 //Should scale to higher loads better than connecting for every tx
-    var propertyname = new bitcoin.Client({
+    var propertyname = new bitcoin.Client({ //map property names to variable names to call by name later
       host: 'localhost',
       port: coins.(transaction[index].currency).port,
       user: coins.(transaction[index].currency).rpcusername,
