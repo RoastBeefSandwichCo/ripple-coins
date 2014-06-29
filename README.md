@@ -28,6 +28,7 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 ## Installation
  - Install the dependencies. Ripple-lib must be installed globally, I think. No further installation required right now.
+
 ## Usage
  - During development
    - Ripple-rest must be running. Gatewayd optional unless testing pending_withdrawal/deposits endpoints which are provided to the REST api by gatewayd.
