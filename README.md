@@ -37,6 +37,8 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
    - Ripple-rest must be running. Gatewayd optional unless testing pending_withdrawal/deposits endpoints which are provided to the REST api by gatewayd.
    - Ripple-lib must be installed globally, I think
    - Run with "node <module being tested>". "node withdrawal-manager.js" will connect to ripple server, listen for ledger closes, query the API and show available endpoints.
+ - Planned implementation
+   - Will seek integration into gatewayd. Alternatively, will package for npm installation.
 
 ##Outline:
  1. Get notified of pending withdrawals (gatewayd). *DONE.
