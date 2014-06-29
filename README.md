@@ -17,14 +17,14 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
   - Provides easy deposit and withdrawal management (and endpoints in Ripple REST)
 
 3. [Ripple lib](https://github.com/ripple/ripple-lib)
-  - Remote is used for listening for transactions
+  - Remote is used for listening for ledger closes
 
 4. [Ripple REST API](https://github.com/ripple/ripple-rest.git)
   - Used by gatewayd
   - Used by our modules to retrieve pending deposits and withdrawals
 
 5. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)
-  - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (TODO: list specific calls) should do.
+  - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (sendtoaddress, sendfromaccount...) should do.
 
 6. [node-bitcoin](https://www.npmjs.org/package/bitcoin)
   - Greatly simplifies connection and interaction!
@@ -36,7 +36,7 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
  - During development
    - Ripple-rest must be running. Gatewayd optional unless testing pending_withdrawal/deposits endpoints which are provided to the REST api by gatewayd.
    - Ripple-lib must be installed globally, I think
-   - Node <module being tested>
+   - Run with "node <module being tested>". "node withdrawal-manager.js" will connect to ripple server, listen for ledger closes, query the API and show available endpoints.
 
 ##Outline:
  1. Get notified of pending withdrawals (gatewayd). *DONE.
