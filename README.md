@@ -6,7 +6,7 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 ## Ripple Coins - A universal gatewayd cryptocurrency integration and automation framework
 
-  - That sure is a mouthful.
+  - That sure is a mouthful. It's a connector for gatewayd for all coins (or a very large majority).
 
 ## Dependencies
 
