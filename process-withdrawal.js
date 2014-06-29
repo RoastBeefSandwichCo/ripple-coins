@@ -7,9 +7,9 @@ var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
 
 //external call instantiates
 function coinProcessing(transaction){
-constructor
+in constructor, open connections to all coin daemons
 for each property in coins:
-//create connection to recycle. Should scale to higher loads better than connecting for every tx
+//Should scale to higher loads better than connecting for every tx
     var propertyname = new bitcoin.Client({
       host: 'localhost',
       port: coins.(transaction[index].currency).port,
