@@ -4,7 +4,10 @@ require ("bitcoin");
 //for our purposes and this library allows us to offer extensibility to future maintainers
 
 var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
-goes in constructor:
+
+//external call instantiates
+function coinProcessing(transaction){
+constructor
 for each property in coins:
 //create connection to recycle. Should scale to higher loads better than connecting for every tx
     var propertyname = new bitcoin.Client({
@@ -16,20 +19,27 @@ for each property in coins:
     });
 
 
+    function sendTx(){
+    //send transaction
+        should look something like:
+        command                      address                                     amount                                                     comment
+        propertyname.sendToAddress  transaction.withdrawals.external_account_id transacton.withdrawals.(convertToNumber)amount "'ripple_transaction_id'"
+        propertyname.sendToAddress(transaction.withdrawals.external_account_id, transaction.withdrawals.(convertToNumber)amount, "'ripple_transaction_id'", function(err, txid, resHeaders){
+            if (err) return console.log(err);
+            console.log('txid:', txid);
+        });
+    }
+
+is a txid enough to clear the withdrawal? Hm.
+
+    function clearWithdrawal(){
+        //clear pending_withdrawal
+    };
 
 
 
-//external call instantiates
-function coinProcessing(transaction){
 
-should look something like:
-sendtoaddress  address                                     amount                                         comment
-propertyname.sendToAddress  transaction.withdrawals.external_account_id transacton.withdrawals.(convertToNumber)amount "'ripple_transaction_id'"
-
-}
-payout method needs to return tx to a callback to
-clear withdrawal
-
+//withdrawal object example
 //http://github.com/ripple/gatewayd#listing-withdrawals
 /*{
   "withdrawals": [
