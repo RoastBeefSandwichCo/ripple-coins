@@ -19,24 +19,37 @@ for (var each in coins){ //no idea if this mapping attempt with work
 //for each object (coin configuration) in the
         coinDaemons[each]/* where each is name of object. i.e., CR1, CR2, PHC)*/ = new bitcoin.Client({ //map property names to variable names to call by name later
         host: 'localhost',
-        port: each.port,
-        user: each.rpcusername,
-        pass: each.rpcpassword,
+        port: coins[each].port,
+        user: coins[each].rpcusername,
+        pass: coins[each].rpcpassword,
         timeout: 30000
     });
-console.log('each', each);
-console.log('port',coins[each].port);
+//console.log('each', each);
+//console.log('port',coins[each].port);
 
 }
 
-function selfTest(){
+function showCollection(objCollection){
     console.log('selfTest!');
+    for(var obj in objCollection){
+        console.log('obj:' + obj, '\ncoins[obj]:\n', objCollection[obj],'\n');
+        for (var propt in objCollection[obj]){
+            console.log('obj[propt]:',propt, '\ncoins[obj[propt]]:' , objCollection[obj][propt],'\n');
+        }
+    }
+}
+
+function selfTest(){
+/*    console.log('selfTest!');
     for(var obj in coins){
         console.log('obj:' + obj, '\ncoins[obj]:\n', coins[obj],'\n');
         for (var propt in coins[obj]){
             console.log('obj[propt]:',propt, '\ncoins[obj[propt]]:' , coins[obj][propt],'\n');
         }
     }
+*/
+//showCollection(coins);
+showCollection(coinDaemons);
 }
 
 function coinProcessing(transaction){
