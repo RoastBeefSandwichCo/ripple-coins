@@ -1,3 +1,5 @@
+var runSelfTest = true;
+testLevel =1;
 //https://www.npmjs.org/package/bitcoin
 var bitcoin = require ('bitcoin');
 //note: note all commands are supported by all bitcoin clients, but there is enough consistency
@@ -29,7 +31,7 @@ for (var each in coins){ //no idea if this mapping attempt with work
 
 }
 
-function showCollection(objCollection){
+function showCollection(objCollection){//shows properties of objects in a collection. Like port/host/userpass of each coin in cryptocurrencies.json
     console.log('selfTest!');
     for(var obj in objCollection){
         console.log('obj:' + obj, '\ncoins[obj]:\n', objCollection[obj],'\n');
@@ -39,17 +41,19 @@ function showCollection(objCollection){
     }
 }
 
-function selfTest(){
-/*    console.log('selfTest!');
-    for(var obj in coins){
-        console.log('obj:' + obj, '\ncoins[obj]:\n', coins[obj],'\n');
-        for (var propt in coins[obj]){
-            console.log('obj[propt]:',propt, '\ncoins[obj[propt]]:' , coins[obj][propt],'\n');
-        }
+function selfTest(testLevel){ //verifies cryptocurrencies.json was read and bitcoin clients created
+    if (testLevel > 0){
+        console.log('Checking to see if cryptocurrencies.json was loaded. Showing coins.');
+        showCollection(coins);
     }
-*/
-//showCollection(coins);
-showCollection(coinDaemons);
+    if (testLevel > 1){
+        console.log('Checking to see if bitcoin Clients were created. Showing coinDaemons and available methods');
+        showCollection(coinDaemons);
+    }
+    if (testLevel > 2){
+        console.log('Testing coinDaemon method calls using an example transaction. THIS WILL SEND CRYPTO!!!');
+        coinProcessing(exampleTx);
+    }
 }
 
 function coinProcessing(transaction){
@@ -73,11 +77,12 @@ function coinProcessing(transaction){
     };
 }
 
-abc = selfTest();
-
+if (runSelfTest == true){
+    selfTest(testLevel);
+}
 //withdrawal object example
 //http://github.com/ripple/gatewayd#listing-withdrawals
-/*{
+exampleTx = {
   "withdrawals": [
     {
       "data": null,
@@ -107,4 +112,4 @@ abc = selfTest();
     }
   ]
 
-}*/
+}
