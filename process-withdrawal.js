@@ -11,11 +11,10 @@ var coinDaemons = {};
 //in constructor, open connections to all coin daemons
 
 for (var each in coins){
-console.log(each);
+console.log('coin found:',each);
 }
-console.log('------');
+
 for (var each in coins){ //no idea if this mapping attempt with work
-console.log ('each',each);
 //Should scale to higher loads better than connecting for every tx
 //for each object (coin configuration) in the
         coinDaemons[each]/* where each is name of object. i.e., CR1, CR2, PHC)*/ = new bitcoin.Client({ //map property names to variable names to call by name later
@@ -25,20 +24,17 @@ console.log ('each',each);
         pass: each.rpcpassword,
         timeout: 30000
     });
+console.log('each', each);
 console.log('port',coins[each].port);
 
 }
 
-function selfTest(){ //selfTest is BROKEN!
+function selfTest(){
     console.log('selfTest!');
     for(var obj in coins){
-        console.log(obj + ': ' + coins[obj]);
-        for (var propt in obj){
-//            if (obj.hasOwnProperty(propt)) {
-        // do stuff
-            console.log(propt, obj[propt]);
-//            }
-//            console.log(propt + ': ' + obj[propt]);
+        console.log('obj:' + obj, '\ncoins[obj]:\n', coins[obj],'\n');
+        for (var propt in coins[obj]){
+            console.log('obj[propt]:',propt, '\ncoins[obj[propt]]:' , coins[obj][propt],'\n');
         }
     }
 }
