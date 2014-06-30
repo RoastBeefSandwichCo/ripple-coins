@@ -8,6 +8,15 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
   - That sure is a mouthful. It's a connector for gatewayd for all coins (or a very large majority).
 
+##Status
+This project is under heavy development. Pull and merge frequently!!
+
+##Progress
+1. Withdrawal processing
+  - Nearly done. Need to finish coin daemon calls and point api-query at proper endpoints, test, done.
+2. Deposit processing
+  - Not started. Doesn't look very hard, though... >.>
+
 ## Dependencies
 
 1. [Node.js](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
@@ -40,13 +49,14 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
  - Planned implementation
    - Will seek integration into gatewayd. Alternatively, will package for npm installation.
 
-##Outline:
- 1. Get notified of pending withdrawals (gatewayd). *DONE.
- 2. Retrieve and parse withdrawal info from gatewayd (or its REST endpoints) and perform any necessary verification. *DONE
- 3. RPC calls to daemon to pay out *DONE using node-bitcoin
-   - But coin object creation, connection still needs to be implemented
- 4. Develop listener for coin daemon to watch for deposits. Inform gatewayd.
- 5. RPC calls to coin daemon (for withdrawals) or issue IOUs (deposits. Gatewayd handles this. I think. Test.)
+##Processes:
+ 1. Automatically pay out externally (cryptocurrency to user crypto address) on receipt of withdrawal
+   - Listen for ledger close (rippled api using ripple-lib remote) then check [pending_withdrawals](https://github.com/ripple/gatewayd#listing-withdrawals) (RESTful API endpoint provided by gatewayd)
+   - Send [RPC request](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list) to coin daemon via node-bitcoin
+   - [Clear withdrawal](https://github.com/ripple/gatewayd#clearing-a-withdrawal) using RESTful API
+ 2. Automatically issue IOUs for external deposits (cryptocurrency from user to own crypto address)
+   - Listen to coin daemon for received transactions
+   - [Submit deposit](https://github.com/ripple/gatewayd#creating-a-deposit) via RESTful API for gatewayd processing
 
 ## TODO:
  - List unsupported coins
