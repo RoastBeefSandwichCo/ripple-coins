@@ -50,7 +50,7 @@ This project is under heavy development. Pull and merge frequently!!
    - Will seek integration into gatewayd. Alternatively, will package for npm installation.
 
 ##Processes:
- 1. Automatically pay out externally (cryptocurrency to user crypto address) on receipt of withdrawal
+ 1. Automatically pay out externally (cryptocurrency to user crypto address) on notice of withdrawal
    - Listen for ledger close (rippled api using ripple-lib remote) then check [pending_withdrawals](https://github.com/ripple/gatewayd#listing-withdrawals) (RESTful API endpoint provided by gatewayd)
    - Send [RPC request](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list) to coin daemon via node-bitcoin
    - [Clear withdrawal](https://github.com/ripple/gatewayd#clearing-a-withdrawal) using RESTful API
