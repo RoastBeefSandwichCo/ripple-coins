@@ -56,3 +56,9 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 ##Thanks!
  - To everyone who donates, contributes code, or has developed a module I'm using. In particular (and besides Ripple Labs in general), thank you Steven Zeiler and others for all your work on gatewayd, and freewil and company for node-bitcoin which has saved me quite some work.
+
+##Donate
+  - BTC 1K2BZ3XxpRNiNissEHoVcrCv3tEqEsHP28
+  - LTC LgaoNgSNxJwyno61edyRUz2ZKFkgPQYV5t
+  - DOGE D7U9VyJsStZ23MPgTr2TxGLj4bdfs69b8e
+  - ANYTHING! rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs
