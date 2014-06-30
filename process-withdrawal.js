@@ -7,10 +7,10 @@ var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
 
 //external call instantiates
 function coinProcessing(transaction){
-in constructor, open connections to all coin daemons
-for each object in coins:
+//in constructor, open connections to all coin daemons
+for (var each in coins){ //no idea if this mapping attempt with work
 //Should scale to higher loads better than connecting for every tx
-    var propertyname = new bitcoin.Client({ //map property names to variable names to call by name later
+    var [each]/* where each is name of object. i.e., CR1, CR2, PHC)*/ = new bitcoin.Client({ //map property names to variable names to call by name later
       host: 'localhost',
       port: coins.(transaction[index].currency).port,
       user: coins.(transaction[index].currency).rpcusername,
@@ -24,7 +24,7 @@ for each object in coins:
         should look something like:
         command                      address                                     amount                                                     comment
         propertyname.sendToAddress  transaction.withdrawals.external_account_id transacton.withdrawals.(convertToNumber)amount "'ripple_transaction_id'"
-        propertyname.sendToAddress(transaction.withdrawals.external_account_id, transaction.withdrawals.(convertToNumber)amount, "'ripple_transaction_id'", function(err, txid, resHeaders){
+        [transaction.withdrawals.currency].sendToAddress(transaction.withdrawals.external_account_id, transaction.withdrawals.(convertToNumber)amount, "'ripple_transaction_id'", function(err, txid, resHeaders){
             if (err) return console.log(err);
             console.log('txid:', txid);
         });
