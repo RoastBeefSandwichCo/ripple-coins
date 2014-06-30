@@ -61,4 +61,4 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
   - BTC 1K2BZ3XxpRNiNissEHoVcrCv3tEqEsHP28
   - LTC LgaoNgSNxJwyno61edyRUz2ZKFkgPQYV5t
   - DOGE D7U9VyJsStZ23MPgTr2TxGLj4bdfs69b8e
-  - ANYTHING! rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs
+  - Ripples!(XRP) rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs
