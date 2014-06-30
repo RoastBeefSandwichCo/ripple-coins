@@ -42,8 +42,9 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 ##Outline:
  1. Get notified of pending withdrawals (gatewayd). *DONE.
- 2. Retrieve and parse withdrawal info from gatewayd (or its REST endpoints) and perform any necessary verification.
+ 2. Retrieve and parse withdrawal info from gatewayd (or its REST endpoints) and perform any necessary verification. *DONE
  3. RPC calls to daemon to pay out *DONE using node-bitcoin
+   - But coin object creation, connection still needs to be implemented
  4. Develop listener for coin daemon to watch for deposits. Inform gatewayd.
  5. RPC calls to coin daemon (for withdrawals) or issue IOUs (deposits. Gatewayd handles this. I think. Test.)
 
