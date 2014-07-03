@@ -1,19 +1,24 @@
+//test vars
 var runSelfTest = true;
-testLevel =1;
-//https://www.npmjs.org/package/bitcoin
-var bitcoin = require ('bitcoin');
-//note: note all commands are supported by all bitcoin clients, but there is enough consistency
-//for our purposes and this library allows us to offer extensibility to future maintainers
-
+testLevel = 4;//add selective testing
+whichMethod = "sendToAddress";
+//end test vars
+Assert = require("assert");
+var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin for interfacing with coin daemons
+var btcMath = require('bitcoin-math'); //https://www.npmjs.org/package/bitcoin-math for string conversion
 var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
-console.log(coins);
-console.log(coins.PHC.port);
-//external call instantiates
+
+var num = 2;
+Assert (num.toBitcoin);
+console.log('newnum',num);
+
+
+//console.log(coins);
+//console.log(coins.PHC.port);
 var coinDaemons = {};
-//in constructor, open connections to all coin daemons
 
 for (var each in coins){
-console.log('coin found:',each);
+//console.log('coin found:',each);
 }
 
 for (var each in coins){ //no idea if this mapping attempt with work
@@ -55,30 +60,77 @@ function selfTest(testLevel){ //verifies cryptocurrencies.json was read and bitc
         coinProcessing(exampleTx);
     }
 }
-
 function coinProcessing(transaction){
-
 //withdrawals is AN ARRAY. so like, handle that.
-    function sendTx(){
-    //send transaction
-//        should look something like:
-//        command                      address                                     amount                                                     comment
-//        propertyname.sendToAddress  transaction.withdrawals.external_account_id transacton.withdrawals.(convertToNumber)amount "'ripple_transaction_id'"
-/*        coinDaemons[transaction.withdrawals.currency].sendToAddress(transaction.withdrawals.external_account_id, transaction.withdrawals.(convertToNumber)amount, "'ripple_transaction_id'", function(err, txid, resHeaders){
-            if (err) return console.log(err);
+    function sendTx(withdrawalObj, isValid){
+//        validation = validateAddress(withdrawalObj.currency, withdrawalObj.external_account_id, sendTx);
+        console.log(withdrawalObj.external_account_id, 'is valid:',isValid);
+        if (isValid != true){return false;}
+        console.log ('continuing...');
+console.log('converting value',withdrawalObj.amount);
+
+amount = parseFloat(withdrawalObj.amount);
+console.log('amount:', typeof(amount), amount);
+//amount = withdrawalObj.amount;
+// Assert(amount.toBitcoin); throws error.
+// well if it can't convert from a string, why do i need it?
+
+console.log('amount:',amount);
+        coinDaemons[withdrawalObj.currency].sendToAddress(withdrawalObj.external_account_id, amount, withdrawalObj.ripple_transaction_id, function(err, txid, resHeaders){
+            console.log('sT:errStr:', err);
             console.log('txid:', txid);
-        });*/
+            console.log(resHeaders);
+            if (txid != undefined){
+                console.log('txid should be something. is it?');
+            }
+        });
     }
 
 //is a txid enough to clear the withdrawal? Hm.
+    function validateAddress(thisWithdrawal, callback){
+        currency = thisWithdrawal.currency;
+        address = thisWithdrawal.external_account_id;
+        console.log ('validating:', currency, address);
+        coinDaemons[currency].validateAddress(address, function(errStr, isValid, resHeaders){
+            console.log('V:errStr:',errStr);
+            //if (err) { console.log(err);}
+                //console.log('isValid', isValid, resHeaders, '\n--', typeof(resHeaders), '--\n');
+            if (isValid == undefined){
+                //console.log(address, ': BURN THE WITCH BURN THE WITCH!');
+                //callback(thisWithdrawal, false);
+                //return false;
+            }
+
+            else{
+                if (isValid.isvalid == false){
+                    console.log(address, ': FALSE!');
+                    callback(thisWithdrawal, isValid.isvalid);
+                    return false;
+                }
+                if (isValid.isvalid == true){
+                    console.log(address, ': TRUE!');
+                    callback(thisWithdrawal, isValid.isvalid);
+                    return true;
+                }
+            }
+        });
+    }
 
     function clearWithdrawal(){
         //clear pending_withdrawal
-    };
-}
+    }
 
-if (runSelfTest == true){
-    selfTest(testLevel);
+//console.log('TX:',transaction);
+//    console.log('transaction.withdrawals[0]', transaction.withdrawals[0]);
+//    console.log('transaction.withdrawals[0].currency', transaction.withdrawals[0].currency);
+for (i=0; i < transaction.withdrawals.length; i++){
+//console.log ('t.w['+i+']', transaction.withdrawals[i]);
+    validation = validateAddress(transaction.withdrawals[i], sendTx);
+//console.log('validation for', transaction.withdrawals[i].address, 'returned', validation);
+//for(each in transaction.withdrawals[ol]){
+//    console.log('each in transaction.withdrawal:', each);
+//    sendTx(each);
+    }
 }
 //withdrawal object example
 //http://github.com/ripple/gatewayd#listing-withdrawals
@@ -87,10 +139,11 @@ exampleTx = {
     {
       "data": null,
       "id": 79,
-      "amount": "1001",
-      "currency": "SWD",
+      "amount": "2",
+      "currency": "PHC",
       "deposit": false,
-      "external_account_id": 6,
+//      "external_account_id": "P9cufwoUWBcqQoQsey5PsmbVPWxZJZuFq6", //my phc address
+      "external_account_id": "mkkJyeoyNokouRwKvoq3fLCpSMHj9m6dJk",
       "status": "queued",
       "ripple_transaction_id": 80,
       "createdAt": "2014-05-30T19:23:48.390Z",
@@ -100,10 +153,10 @@ exampleTx = {
     {
       "data": null,
       "id": 84,
-      "amount": "8.5",
-      "currency": "SWD",
+      "amount": "1",
+      "currency": "PHC",
       "deposit": false,
-      "external_account_id": 6,
+      "external_account_id": "P9cufwoUWBcqQoQsey5PsmbVPWxZJZuFq6",
       "status": "queued",
       "ripple_transaction_id": 85,
       "createdAt": "2014-06-11T00:23:56.992Z",
@@ -113,3 +166,10 @@ exampleTx = {
   ]
 
 }
+
+
+
+if (runSelfTest == true){
+    selfTest(testLevel);
+}
+
