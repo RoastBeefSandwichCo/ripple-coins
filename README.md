@@ -8,9 +8,6 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
   - That sure is a mouthful. It's a connector for gatewayd for all coins (or a very large majority).
 
-##Status
-This project is under heavy development. Pull and merge frequently!!
-
 ##Progress
 1. Withdrawal processing
   - Nearly done. Need to finish coin daemon calls and point api-query at proper endpoints, test, done.
