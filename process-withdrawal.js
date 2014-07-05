@@ -1,20 +1,16 @@
-//test vars
+//test varis
 var runSelfTest = true;
 testLevel = 4;//add selective testing
 whichMethod = "sendToAddress";
 //end test vars
 Assert = require("assert");
 var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin for interfacing with coin daemons
-var btcMath = require('bitcoin-math'); //https://www.npmjs.org/package/bitcoin-math for string conversion
+//var btcMath = require('bitcoin-math'); //https://www.npmjs.org/package/bitcoin-math for string conversion
 var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
-
-var num = 2;
-Assert (num.toBitcoin);
-console.log('newnum',num);
+//var bigInt = require ("./BigInt.js");
+//console.log(bigInt);
 
 
-//console.log(coins);
-//console.log(coins.PHC.port);
 var coinDaemons = {};
 
 for (var each in coins){
@@ -63,25 +59,20 @@ function selfTest(testLevel){ //verifies cryptocurrencies.json was read and bitc
 function coinProcessing(transaction){
 //withdrawals is AN ARRAY. so like, handle that.
     function sendTx(withdrawalObj, isValid){
-//        validation = validateAddress(withdrawalObj.currency, withdrawalObj.external_account_id, sendTx);
         console.log(withdrawalObj.external_account_id, 'is valid:',isValid);
         if (isValid != true){return false;}
         console.log ('continuing...');
-console.log('converting value',withdrawalObj.amount);
-
-amount = parseFloat(withdrawalObj.amount);
-console.log('amount:', typeof(amount), amount);
-//amount = withdrawalObj.amount;
-// Assert(amount.toBitcoin); throws error.
-// well if it can't convert from a string, why do i need it?
-
-console.log('amount:',amount);
-        coinDaemons[withdrawalObj.currency].sendToAddress(withdrawalObj.external_account_id, amount, withdrawalObj.ripple_transaction_id, function(err, txid, resHeaders){
+        amount = Number(withdrawalObj.amount)
+        commentTo = String(withdrawalObj.ripple_transaction_id);
+        console.log("Converted '" + typeof(withdrawalObj.amount) + "' " + withdrawalObj.amount + " to '" + typeof(amount)+ "' " + amount);
+        console.log("Converted '" + typeof(withdrawalObj.ripple_transaction_id)  + "' " + withdrawalObj.ripple_transaction_id + " to '" + typeof(commentTo)+ "' " + commentTo);
+        coinDaemons[withdrawalObj.currency].sendToAddress(withdrawalObj.external_account_id, amount, commentTo, function(err, txid, resHeaders){
             console.log('sT:errStr:', err);
             console.log('txid:', txid);
             console.log(resHeaders);
             if (txid != undefined){
                 console.log('txid should be something. is it?');
+                console.log('TXID:', txid);
             }
         });
     }
@@ -92,23 +83,23 @@ console.log('amount:',amount);
         address = thisWithdrawal.external_account_id;
         console.log ('validating:', currency, address);
         coinDaemons[currency].validateAddress(address, function(errStr, isValid, resHeaders){
-            console.log('V:errStr:',errStr);
+            //console.log('V:errStr:',errStr);
             //if (err) { console.log(err);}
                 //console.log('isValid', isValid, resHeaders, '\n--', typeof(resHeaders), '--\n');
             if (isValid == undefined){
-                //console.log(address, ': BURN THE WITCH BURN THE WITCH!');
+                console.log(address, ': BURN THE WITCH BURN THE WITCH!');
                 //callback(thisWithdrawal, false);
                 //return false;
             }
 
             else{
-                if (isValid.isvalid == false){
-                    console.log(address, ': FALSE!');
+                if (isValid.isvalid == false){//for some reason this ALWAYS triggers. Artifact of async execution?
+//                    console.log(address, ': FALSE!');
                     callback(thisWithdrawal, isValid.isvalid);
                     return false;
                 }
                 if (isValid.isvalid == true){
-                    console.log(address, ': TRUE!');
+//                    console.log(address, ': TRUE!');
                     callback(thisWithdrawal, isValid.isvalid);
                     return true;
                 }
@@ -139,7 +130,7 @@ exampleTx = {
     {
       "data": null,
       "id": 79,
-      "amount": "2",
+      "amount": "0.00000009",
       "currency": "PHC",
       "deposit": false,
 //      "external_account_id": "P9cufwoUWBcqQoQsey5PsmbVPWxZJZuFq6", //my phc address
@@ -153,7 +144,7 @@ exampleTx = {
     {
       "data": null,
       "id": 84,
-      "amount": "1",
+      "amount": "0.00000001",
       "currency": "PHC",
       "deposit": false,
       "external_account_id": "P9cufwoUWBcqQoQsey5PsmbVPWxZJZuFq6",
