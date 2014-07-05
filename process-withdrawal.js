@@ -1,37 +1,30 @@
 //test varis
 var runSelfTest = true;
-testLevel = 4;//add selective testing
-whichMethod = "sendToAddress";
+testLevel = 0;
+testSelect = 'tx';
 //end test vars
-Assert = require("assert");
-var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin for interfacing with coin daemons
-//var btcMath = require('bitcoin-math'); //https://www.npmjs.org/package/bitcoin-math for string conversion
-var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
-//var bigInt = require ("./BigInt.js");
-//console.log(bigInt);
+console.log('runSelfTest:', runSelfTest);
+console.log('testLevel=', testLevel);
+console.log('testSelect:', testSelect);
 
+var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin for interfacing with coin daemons
+var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
 
 var coinDaemons = {};
+sep = '\n--------------------------------------------------------\n';
 
-for (var each in coins){
-//console.log('coin found:',each);
-}
 
-for (var each in coins){ //no idea if this mapping attempt with work
-//Should scale to higher loads better than connecting for every tx
-//for each object (coin configuration) in the
-        coinDaemons[each]/* where each is name of object. i.e., CR1, CR2, PHC)*/ = new bitcoin.Client({ //map property names to variable names to call by name later
+for (var each in coins){ //instantiate coin objects from cryptocurrencies.json
+        coinDaemons[each] = new bitcoin.Client({ //Name of coin is name of object
         host: 'localhost',
         port: coins[each].port,
         user: coins[each].rpcusername,
         pass: coins[each].rpcpassword,
         timeout: 30000
     });
-//console.log('each', each);
-//console.log('port',coins[each].port);
-
 }
 
+//keeping this around since it also shows rpc methods available
 function showCollection(objCollection){//shows properties of objects in a collection. Like port/host/userpass of each coin in cryptocurrencies.json
     console.log('selfTest!');
     for(var obj in objCollection){
@@ -42,67 +35,70 @@ function showCollection(objCollection){//shows properties of objects in a collec
     }
 }
 
+
 function selfTest(testLevel){ //verifies cryptocurrencies.json was read and bitcoin clients created
     if (testLevel > 0){
-        console.log('Checking to see if cryptocurrencies.json was loaded. Showing coins.');
+        console.log(sep, 'Checking to see if cryptocurrencies.json was loaded. Showing coins.',sep);
         showCollection(coins);
     }
     if (testLevel > 1){
-        console.log('Checking to see if bitcoin Clients were created. Showing coinDaemons and available methods');
+        console.log(sep, 'Checking to see if bitcoin Clients were created. Showing coinDaemons and available methods', sep);
         showCollection(coinDaemons);
     }
-    if (testLevel > 2){
-        console.log('Testing coinDaemon method calls using an example transaction. THIS WILL SEND CRYPTO!!!');
-        coinProcessing(exampleTx);
+
+    if (testSelect != ''){
+        if (testSelect.indexOf('tx' >0)){
+            console.log(sep, 'Testing coinDaemon method calls using an example transaction. THIS WILL SEND CRYPTO so you should be on testnet!!!', sep);
+            coinProcessing(exampleTx);
+        }
     }
 }
+
 function coinProcessing(transaction){
-//withdrawals is AN ARRAY. so like, handle that.
+
     function sendTx(withdrawalObj, isValid){
         console.log(withdrawalObj.external_account_id, 'is valid:',isValid);
-        if (isValid != true){return false;}
-        console.log ('continuing...');
+        if (isValid != true){
+            console.log('Invalid address. Rejecting.')
+            return false;
+        }
+
+        console.log(sep, 'Processing transaction');
         amount = Number(withdrawalObj.amount)
         commentTo = String(withdrawalObj.ripple_transaction_id);
         console.log("Converted '" + typeof(withdrawalObj.amount) + "' " + withdrawalObj.amount + " to '" + typeof(amount)+ "' " + amount);
         console.log("Converted '" + typeof(withdrawalObj.ripple_transaction_id)  + "' " + withdrawalObj.ripple_transaction_id + " to '" + typeof(commentTo)+ "' " + commentTo);
+        console.log('Command:', withdrawalObj.currency, 'sendToAddress(', withdrawalObj.external_account_id, amount, commentTo,')');
         coinDaemons[withdrawalObj.currency].sendToAddress(withdrawalObj.external_account_id, amount, commentTo, function(err, txid, resHeaders){
-            console.log('sT:errStr:', err);
-            console.log('txid:', txid);
-            console.log(resHeaders);
-            if (txid != undefined){
-                console.log('txid should be something. is it?');
-                console.log('TXID:', txid);
-            }
+            console.log('errors:', err, '\nresHeaders', resHeaders, '\ntxid:', txid);
         });
     }
 
-//is a txid enough to clear the withdrawal? Hm.
     function validateAddress(thisWithdrawal, callback){
         currency = thisWithdrawal.currency;
         address = thisWithdrawal.external_account_id;
-        console.log ('validating:', currency, address);
-        coinDaemons[currency].validateAddress(address, function(errStr, isValid, resHeaders){
-            //console.log('V:errStr:',errStr);
-            //if (err) { console.log(err);}
-                //console.log('isValid', isValid, resHeaders, '\n--', typeof(resHeaders), '--\n');
-            if (isValid == undefined){
-                console.log(address, ': BURN THE WITCH BURN THE WITCH!');
-                //callback(thisWithdrawal, false);
-                //return false;
-            }
+        errStr = '';
+        resHeaders = '';
+        isValid = '';
+        console.log(sep, 'Validating:',address);
+        coinDaemons[currency].validateAddress(address, function(err, isValid, resHeaders){
+            console.log('errors:', err, '\nisValid:', isValid, '\nresHeaders', resHeaders);
+            console.log(address, 'isValid:' , isValid, 'isValid.isvalid:', isValid.isvalid)
+            /*if (err) { console.log(err);}
+            }*/
 
+/*            if (isValid.isvalid == false){//At least one daemon responds false AND true...whatever. ignore.
+                console.log(address, ': FALSE!');
+                return false;
+            }*/
+            if (isValid.isvalid == true){
+                console.log('SUCCESS');
+                callback(thisWithdrawal, isValid.isvalid);
+                return true;
+            }
             else{
-                if (isValid.isvalid == false){//for some reason this ALWAYS triggers. Artifact of async execution?
-//                    console.log(address, ': FALSE!');
-                    callback(thisWithdrawal, isValid.isvalid);
-                    return false;
-                }
-                if (isValid.isvalid == true){
-//                    console.log(address, ': TRUE!');
-                    callback(thisWithdrawal, isValid.isvalid);
-                    return true;
-                }
+                console.log('FAILED');
+                return false;
             }
         });
     }
@@ -110,19 +106,12 @@ function coinProcessing(transaction){
     function clearWithdrawal(){
         //clear pending_withdrawal
     }
-
-//console.log('TX:',transaction);
-//    console.log('transaction.withdrawals[0]', transaction.withdrawals[0]);
-//    console.log('transaction.withdrawals[0].currency', transaction.withdrawals[0].currency);
+//run transaction
 for (i=0; i < transaction.withdrawals.length; i++){
-//console.log ('t.w['+i+']', transaction.withdrawals[i]);
     validation = validateAddress(transaction.withdrawals[i], sendTx);
-//console.log('validation for', transaction.withdrawals[i].address, 'returned', validation);
-//for(each in transaction.withdrawals[ol]){
-//    console.log('each in transaction.withdrawal:', each);
-//    sendTx(each);
     }
 }
+
 //withdrawal object example
 //http://github.com/ripple/gatewayd#listing-withdrawals
 exampleTx = {
