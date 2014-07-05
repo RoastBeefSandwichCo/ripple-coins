@@ -1,5 +1,4 @@
 process-withdrawal.js
-    move coin loading into coinProcessing
     export coinProcessing
     clear withdrawals (is stub)
 
