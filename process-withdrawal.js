@@ -1,20 +1,11 @@
-//Read withdrawals object, send transactions
-//TODO: check if coin is supported before trying to call a method for an object that may not exist
-var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin for interfacing with coin daemons
-var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
+//Reads withdrawals object, sends transactions
+//TODO: handle address validation quirk
+//TODO: re-examine self-tests
+var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin greatly simplifies interfacing with coin daemons
+var coins = require ("./cryptocurrencies.json");//coin configurations
 
-var coinDaemons = {};
+//var coinDaemons = {};
 sep = '\n--------------------------------------------------------\n';
-//move this inside a function, pass to coinProcessing, export coinProcessing
-for (var each in coins){ //instantiate coin objects from cryptocurrencies.json
-        coinDaemons[each] = new bitcoin.Client({ //Name of coin is name of object
-        host: 'localhost',
-        port: coins[each].port,
-        user: coins[each].rpcusername,
-        pass: coins[each].rpcpassword,
-        timeout: 30000
-    });
-}
 
 //keeping this around since it also shows rpc methods available
 function showCollection(objCollection){//shows properties of objects in a collection. Like port/host/userpass of each coin in cryptocurrencies.json
@@ -26,7 +17,6 @@ function showCollection(objCollection){//shows properties of objects in a collec
         }
     }
 }
-
 
 function selfTest(testLevel, testSelect){ //verifies cryptocurrencies.json was read and bitcoin clients created
     if (testLevel > 0){
@@ -41,12 +31,26 @@ function selfTest(testLevel, testSelect){ //verifies cryptocurrencies.json was r
     if (testSelect != ''){
         if (testSelect.indexOf('tx' >0)){
             console.log(sep, 'Testing coinDaemon method calls using an example transaction. THIS WILL SEND CRYPTO so you should be on testnet!!!', sep);
-            coinProcessing(exampleTx);
+            procTest = new coinProcessing();
+            procTest.loadCryptoConfig();
+            procTest.processThis(exampleTx);
         }
     }
 }
 
-function coinProcessing(transaction){
+function coinProcessing(){
+    var coinDaemons = {};
+    this.loadCryptoConfig = function (){
+        for (var each in coins){ //instantiate coin objects from cryptocurrencies.json
+            coinDaemons[each] = new bitcoin.Client({ //Name of coin is name of object
+                host: 'localhost',
+                port: coins[each].port,
+                user: coins[each].rpcusername,
+                pass: coins[each].rpcpassword,
+                timeout: 30000
+            });
+        }
+    }
 
     function sendTx(withdrawalObj, isValid){
         console.log(withdrawalObj.external_account_id, 'is valid:',isValid);
@@ -72,7 +76,7 @@ function coinProcessing(transaction){
         errStr = '';
         resHeaders = '';
         isValid = '';
-        console.log(sep, 'Validating:',address);
+        console.log(sep, 'Validating:',thisWithdrawal.currency, address);
         coinDaemons[currency].validateAddress(address, function(err, isValid, resHeaders){
             console.log('errors:', err, '\nisValid:', isValid, '\nresHeaders', resHeaders);
             console.log(address, 'isValid:' , isValid, 'isValid.isvalid:', isValid.isvalid)
@@ -84,12 +88,12 @@ function coinProcessing(transaction){
                 return false;
             }*/
             if (isValid.isvalid == true){
-                console.log('SUCCESS');
+                console.log('VALIDATED');
                 callback(thisWithdrawal, isValid.isvalid);
                 return true;
             }
             else{
-                console.log('FAILED');
+                console.log('NOT VALIDATED');
                 return false;
             }
         });
@@ -98,13 +102,21 @@ function coinProcessing(transaction){
     function clearWithdrawal(){
         //clear pending_withdrawal
     }
-//run transaction
-for (i=0; i < transaction.withdrawals.length; i++){
-    validation = validateAddress(transaction.withdrawals[i], sendTx);
+
+    this.processThis = function(withdrawalSet){//run transaction
+        for (i=0; i < withdrawalSet.withdrawals.length; i++){
+            if(coinDaemons.hasOwnProperty(withdrawalSet.withdrawals[i].currency)){
+                validation = validateAddress(withdrawalSet.withdrawals[i], sendTx);
+            }
+            else{
+                console.log('ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(address', withdrawalSet.withdrawals[i].external_account_id + ') does not exist in cryptocurrencies.json. Skipping.');
+                continue;
+            }
+        }
     }
 }
 
-//withdrawal object example
+//withdrawal object example used for testing
 //http://github.com/ripple/gatewayd#listing-withdrawals
 exampleTx = {
   "withdrawals": [
@@ -126,7 +138,7 @@ exampleTx = {
       "data": null,
       "id": 84,
       "amount": "0.00000001",
-      "currency": "PHC",
+      "currency": "PHD",
       "deposit": false,
       "external_account_id": "P9cufwoUWBcqQoQsey5PsmbVPWxZJZuFq6",
       "status": "queued",
@@ -139,7 +151,8 @@ exampleTx = {
 
 }
 
-selfTest = true;
+
+runSelfTest = true;
 testLevel = 0;
 testSelect = 'tx';
 //end test vars
@@ -150,6 +163,7 @@ console.log('testSelect:', testSelect);
 
 
 if (runSelfTest == true){
+//    loadCryptoConfig();
     selfTest(testLevel, testSelect);
 }
 
