@@ -1,19 +1,11 @@
-//test varis
-var runSelfTest = true;
-testLevel = 0;
-testSelect = 'tx';
-//end test vars
-console.log('runSelfTest:', runSelfTest);
-console.log('testLevel=', testLevel);
-console.log('testSelect:', testSelect);
-
+//Read withdrawals object, send transactions
+//TODO: check if coin is supported before trying to call a method for an object that may not exist
 var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin for interfacing with coin daemons
 var coins = require ("./cryptocurrencies.json"); //may need to JSON.parse(coins)
 
 var coinDaemons = {};
 sep = '\n--------------------------------------------------------\n';
-
-
+//move this inside a function, pass to coinProcessing, export coinProcessing
 for (var each in coins){ //instantiate coin objects from cryptocurrencies.json
         coinDaemons[each] = new bitcoin.Client({ //Name of coin is name of object
         host: 'localhost',
@@ -36,7 +28,7 @@ function showCollection(objCollection){//shows properties of objects in a collec
 }
 
 
-function selfTest(testLevel){ //verifies cryptocurrencies.json was read and bitcoin clients created
+function selfTest(testLevel, testSelect){ //verifies cryptocurrencies.json was read and bitcoin clients created
     if (testLevel > 0){
         console.log(sep, 'Checking to see if cryptocurrencies.json was loaded. Showing coins.',sep);
         showCollection(coins);
@@ -87,7 +79,7 @@ function coinProcessing(transaction){
             /*if (err) { console.log(err);}
             }*/
 
-/*            if (isValid.isvalid == false){//At least one daemon responds false AND true...whatever. ignore.
+/*            if (isValid.isvalid == false){// Always returns false, then true (in the same call). Until this is better understood, need protection against double-true
                 console.log(address, ': FALSE!');
                 return false;
             }*/
@@ -147,9 +139,17 @@ exampleTx = {
 
 }
 
+selfTest = true;
+testLevel = 0;
+testSelect = 'tx';
+//end test vars
+console.log('runSelfTest:', runSelfTest);
+console.log('testLevel=', testLevel);
+console.log('testSelect:', testSelect);
+
 
 
 if (runSelfTest == true){
-    selfTest(testLevel);
+    selfTest(testLevel, testSelect);
 }
 

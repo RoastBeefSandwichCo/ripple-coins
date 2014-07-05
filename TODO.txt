@@ -1,0 +1,8 @@
+process-withdrawal.js
+    move coin loading into coinProcessing
+    export coinProcessing
+    clear withdrawals (is stub)
+
+api-query
+    validate data received in call
+    handle rest-offline

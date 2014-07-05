@@ -1,4 +1,5 @@
 //manager listener and api query
+//TODO: default to polling, stream listening optional.
 
 require ("console").log;
 var stream = require ("./stream-listener.js");
