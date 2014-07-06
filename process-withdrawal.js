@@ -42,6 +42,7 @@ function coinProcessing(){
     var coinDaemons = {};
     this.loadCryptoConfig = function (){
         for (var each in coins){ //instantiate coin objects from cryptocurrencies.json
+console.log('Loading coins.');
             coinDaemons[each] = new bitcoin.Client({ //Name of coin is name of object
                 host: 'localhost',
                 port: coins[each].port,
@@ -104,57 +105,29 @@ function coinProcessing(){
     }
 
     this.processThis = function(withdrawalSet){//run transaction
+        if (withdrawalSet.hasOwnProperty('withdrawals') != true){
+            //console.log("No withdrawals found (withdrawalSet does not have property 'withdrawals')");
+            console.log('ERROR: invalid withdrawalSet:', withdrawalSet);
+            return false;
+        }
+        console.log('valid object:', withdrawalSet.hasOwnProperty('withdrawals'));
         for (i=0; i < withdrawalSet.withdrawals.length; i++){
             if(coinDaemons.hasOwnProperty(withdrawalSet.withdrawals[i].currency)){
                 validation = validateAddress(withdrawalSet.withdrawals[i], sendTx);
             }
             else{
-                console.log('ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(address', withdrawalSet.withdrawals[i].external_account_id + ') does not exist in cryptocurrencies.json. Skipping.');
+                console.log('ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(rTxId='+ withdrawalSet.withdrawals[i].ripple_transaction_id + ') does not exist in cryptocurrencies.json. Skipping.');
                 continue;
             }
         }
     }
 }
 
-//withdrawal object example used for testing
-//http://github.com/ripple/gatewayd#listing-withdrawals
-exampleTx = {
-  "withdrawals": [
-    {
-      "data": null,
-      "id": 79,
-      "amount": "0.00000009",
-      "currency": "PHC",
-      "deposit": false,
-//      "external_account_id": "P9cufwoUWBcqQoQsey5PsmbVPWxZJZuFq6", //my phc address
-      "external_account_id": "mkkJyeoyNokouRwKvoq3fLCpSMHj9m6dJk",
-      "status": "queued",
-      "ripple_transaction_id": 80,
-      "createdAt": "2014-05-30T19:23:48.390Z",
-      "updatedAt": "2014-05-30T19:23:48.390Z",
-      "uid": null
-    },
-    {
-      "data": null,
-      "id": 84,
-      "amount": "0.00000001",
-      "currency": "PHD",
-      "deposit": false,
-      "external_account_id": "P9cufwoUWBcqQoQsey5PsmbVPWxZJZuFq6",
-      "status": "queued",
-      "ripple_transaction_id": 85,
-      "createdAt": "2014-06-11T00:23:56.992Z",
-      "updatedAt": "2014-06-11T00:23:56.992Z",
-      "uid": null
-    }
-  ]
-
-}
 
 
-runSelfTest = true;
+runSelfTest = false;
 testLevel = 0;
-testSelect = 'tx';
+testSelect = ''; //options: tx
 //end test vars
 console.log('runSelfTest:', runSelfTest);
 console.log('testLevel=', testLevel);
@@ -163,7 +136,9 @@ console.log('testSelect:', testSelect);
 
 
 if (runSelfTest == true){
+var exampleTx = require("./exampleTX.json");
 //    loadCryptoConfig();
     selfTest(testLevel, testSelect);
 }
 
+module.exports = coinProcessing;

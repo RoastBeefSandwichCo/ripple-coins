@@ -6,32 +6,35 @@
 //An event-based model rather than simply polling the api.
 
 //TODO: handle econnrefused (rest not running)
+
 var Client = require('node-rest-client').Client;
 client = new Client();
-var selfTest = 1;
-//use this later during withdrawal testing.
-//client.registerMethod("jsonMethod", "http://remote.site/rest/json/${id}/method", "GET");
-    args ={
-        path:{"id":120}, // will be either pending_withdrawals or deposits. later. unused right now.
-        parameters:{arg1:"hello",arg2:"world"}, // query parameter substitution vars
-        headers:{"Accepts":"application/json"} // request headers
-    };
-
+var selfTest = 0;
 
 function apiQuery(args, callback){
-    client.methods.jsonMethod(args,function(data,response){
-        //needs connect fail handling
-        jsData = JSON.parse(data);
-//        console.log('endpoints :', jsData.endpoints);
-//        console.log('data.endpoints.server_connected :', jsData.endpoints.server_connected);
-        callback(jsData);
-    });
-    client.on('error', function(err){
-        console.log("CAUSE FUCK YOU SAYS THE API!");
-        console.error(err);
+    client.get("http://localhost:5990/v1/${endpoint}", args, function(data, response){
+        if (data.indexOf('Cannot GET') < 0){
+            try{
+                jsData=JSON.parse(data);
+                callback(jsData);
+            }
+            catch(e){
+                console.log(e); //error in the above string(in this case,yes)!
+                jsData = data;
+                console.log('Could not parse data to JSON object.', jsData);
+                return false;
+            }
+        }
+        else{
+            console.log('Nothing to get- No withdrawals pending (normal), or gatewayd error.');
+            jsData = data;
+        }
+//        callback(jsData);
     });
 }
+
 function testCallback(data){
+    console.log('testcallback. Should not appear in production.');
     console.log('endpoints', data.endpoints);
 };
 
@@ -45,7 +48,7 @@ function runSelfTest(){
     console.log('xx:',xx);
 }
 
-client.registerMethod("jsonMethod", "http://localhost:5990/v1", "GET");
+//client.registerMethod("jsonMethod", "http://localhost:5990/v1/${endpoint}", "GET");
 console.log('selfTest=',selfTest);
 if (selfTest>0){
     runSelfTest();
@@ -53,16 +56,3 @@ if (selfTest>0){
 
 module.exports = apiQuery;
 
-
-
-
-//client.get("http://remote.site/rest/json/${id}/method?arg1=hello&arg2=world", args, 
-/*client.get("http://localhost:5990/v1", args, 
-
-            function(data, response){
-            // parsed response body as js object
-            console.log(data);
-            // raw response
-            console.log(response);
-});
-*/

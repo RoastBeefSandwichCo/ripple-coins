@@ -3,9 +3,9 @@
 
 require ("console").log;
 var stream = require ("./stream-listener.js");
-console.log('stream imported');
 var api = require ("./api-query.js");
-console.log ('api imported');
+var processing = require ("./process-withdrawal.js");
+
 var options = {
     trace: false,
     "streams" : ['ledger'],//['transaction'],
@@ -19,13 +19,20 @@ var options = {
 };
 
 args ={
-        path:{"id":120}, // will be either pending_withdrawals or deposits. later. unused right now.
-        parameters:{arg1:"hello",arg2:"world"}, // query parameter substitution vars
+        path:{"endpoint":"pending_withdrawals"}, // will be either pending_withdrawals or deposits. later. unused right now.
+//        parameters:{arg1:"hello",arg2:"world"}, // query parameter substitution vars
         headers:{"Accepts":"application/json"} // request headers
       };
+var selfTest = 1;
+
+//console.log(processing);
+txProcessor = new processing;
+txProcessor.loadCryptoConfig();
+//txProcessor.processThis(exampleTx);
 
 function realCallback(res){
 //PROCESS WITHDRAWAL!
+txProcessor.processThis(res);
 };
 
 function testCallback(res){
@@ -33,8 +40,15 @@ function testCallback(res){
 };
 
 function middleman(){ //Couldn't find a better way to have remote.on events trigger api queries
-    api(args, testCallback);
+//console.log('API:',api);    
+//    api(args, testCallback);
+    api(args, realCallback);
 };
 
 //create stream listener
+
+var exampleTx = require("./exampleTX.json");
 xx = stream(options,middleman); //events in stream call middleman
+
+
+
