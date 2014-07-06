@@ -92,8 +92,7 @@ console.log('Loading coins.');
                 console.log('VALIDATED');
                 callback(thisWithdrawal, isValid.isvalid);
                 return true;
-            }
-            else{
+            }else{
                 console.log('NOT VALIDATED');
                 return false;
             }
@@ -114,8 +113,7 @@ console.log('Loading coins.');
         for (i=0; i < withdrawalSet.withdrawals.length; i++){
             if(coinDaemons.hasOwnProperty(withdrawalSet.withdrawals[i].currency)){
                 validation = validateAddress(withdrawalSet.withdrawals[i], sendTx);
-            }
-            else{
+            }else{
                 console.log('ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(rTxId='+ withdrawalSet.withdrawals[i].ripple_transaction_id + ') does not exist in cryptocurrencies.json. Skipping.');
                 continue;
             }

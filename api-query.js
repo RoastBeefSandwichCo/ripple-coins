@@ -13,6 +13,7 @@ var selfTest = 0;
 
 function apiQuery(args, callback){
     client.get("http://localhost:5990/v1/${endpoint}", args, function(data, response){
+        console.log(Date.now());
         if (data.indexOf('Cannot GET') < 0){
             try{
                 jsData=JSON.parse(data);
@@ -24,8 +25,7 @@ function apiQuery(args, callback){
                 console.log('Could not parse data to JSON object.', jsData);
                 return false;
             }
-        }
-        else{
+        }else{
             console.log('Nothing to get- No withdrawals pending (normal), or gatewayd error.');
             jsData = data;
         }

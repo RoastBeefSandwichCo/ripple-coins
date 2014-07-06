@@ -8,7 +8,7 @@ var processing = require ("./process-withdrawal.js");
 
 var options = {
     trace: false,
-    "streams" : ['ledger'],//['transaction'],
+    "streams" : ['ledger'],
     servers :[
         {
                 host : 's1.ripple.com',
@@ -23,15 +23,13 @@ args ={
 //        parameters:{arg1:"hello",arg2:"world"}, // query parameter substitution vars
         headers:{"Accepts":"application/json"} // request headers
       };
-var selfTest = 1;
 
-//console.log(processing);
+var selfTest = 1;
+pollOrListen = ''; //if set to anything other than 'listen', module polls api every second
 txProcessor = new processing;
 txProcessor.loadCryptoConfig();
-//txProcessor.processThis(exampleTx);
 
 function realCallback(res){
-//PROCESS WITHDRAWAL!
 txProcessor.processThis(res);
 };
 
@@ -40,15 +38,19 @@ function testCallback(res){
 };
 
 function middleman(){ //Couldn't find a better way to have remote.on events trigger api queries
-//console.log('API:',api);    
-//    api(args, testCallback);
     api(args, realCallback);
 };
 
-//create stream listener
-
-var exampleTx = require("./exampleTX.json");
-xx = stream(options,middleman); //events in stream call middleman
+console.log('pollOrListen', pollOrListen);
+if (pollOrListen == "listen"){//create stream listener
+    console.log('listening');
+    xx = stream(options,middleman); //events in stream call middleman
+}else{
+    console.log('polling');
+    setInterval(api, 1000,[args, realCallback]);
+}
+//self-test only
+//var exampleTx = require("./exampleTX.json");
 
 
 

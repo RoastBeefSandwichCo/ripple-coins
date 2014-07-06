@@ -1,9 +1,11 @@
 process-withdrawal.js
-    export coinProcessing
-    clear withdrawals (is stub)
+1    clear withdrawals (is stub)
 
 api-query
-    enable polling/disable listening by default
-    validate data received in call
-    handle rest-offline
+W    handle rest-offline
 
+Other:
+daemon-listener/poller for deposits and associated logic
+
+
+W = Wishlist
