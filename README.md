@@ -10,45 +10,42 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 ##Progress
 1. Withdrawal processing
-  - Nearly done. Need to finish coin daemon calls and point api-query at proper endpoints, test, done.
+  - Finished except for clearing withdrawals. Should be finished by July 6.
 2. Deposit processing
   - Not started. Doesn't look very hard, though... >.>
 
 ## Dependencies
 
-1. [Node.js](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
-  - You should really already have this installed...
- 
-2. [Gatewayd](https://github.com/ripple/gatewayd)
+1. [Gatewayd](https://github.com/ripple/gatewayd)
   - Provides easy deposit and withdrawal management (and endpoints in Ripple REST)
+  - If you're running it, dependencies 2 & 3 are already satisfied.
 
-3. [Ripple lib](https://github.com/ripple/ripple-lib)
-  - Remote is used for listening for ledger closes
+2. [Node.js](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
+  - Runs the connector
 
-4. [Ripple REST API](https://github.com/ripple/ripple-rest.git)
-  - Used by gatewayd
-  - Used by our modules to retrieve pending deposits and withdrawals
+3. [Ripple REST API](https://github.com/ripple/ripple-rest.git)
+  - Used by our modules to retrieve and clear pending deposits and withdrawals
 
-5. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)
+4. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)
   - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (sendtoaddress, sendfromaccount...) should do.
 
-6. [node-bitcoin](https://www.npmjs.org/package/bitcoin)
-  - Greatly simplifies connection and interaction!
+5. [node-bitcoin](https://www.npmjs.org/package/bitcoin)
+  - Node module providing *coin connection objects
+
+6. (Optional) [Ripple lib](https://github.com/ripple/ripple-lib)
+  - By default, the connector polls the API. Alternatively, ripple-lib's Remote can be used to listen for ledger closes.
 
 ## Installation
- - Install the dependencies. Ripple-lib must be installed globally, I think. No further installation required right now.
+ - Install the dependencies in the cloned source folder. Node package coming soon.
 
 ## Usage
  - During development
-   - Ripple-rest must be running. Gatewayd optional unless testing pending_withdrawal/deposits endpoints which are provided to the REST api by gatewayd.
-   - Ripple-lib must be installed globally, I think
-   - Run with "node <module being tested>". "node withdrawal-manager.js" will connect to ripple server, listen for ledger closes, query the API and show available endpoints.
- - Planned implementation
-   - Will seek integration into gatewayd. Alternatively, will package for npm installation.
+   - Ripple-rest must be running. Gatewayd optional unless testing pending_withdrawal/deposits endpoints which are provided to the RESTful API by gatewayd.
+   - Run with "node module-being-tested". withdrawal-manager.js is the main module for now.
 
 ##Processes:
  1. Automatically pay out externally (cryptocurrency to user crypto address) on notice of withdrawal
-   - Listen for ledger close (rippled api using ripple-lib remote) then check [pending_withdrawals](https://github.com/ripple/gatewayd#listing-withdrawals) (RESTful API endpoint provided by gatewayd)
+   - Poll the RESTful API every 1s (default) or listen for ledger close (rippled api using ripple-lib remote), then check [pending_withdrawals](https://github.com/ripple/gatewayd#listing-withdrawals) (RESTful API endpoint provided by gatewayd)
    - Send [RPC request](https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list) to coin daemon via node-bitcoin
    - [Clear withdrawal](https://github.com/ripple/gatewayd#clearing-a-withdrawal) using RESTful API
  2. Automatically issue IOUs for external deposits (cryptocurrency from user to own crypto address)
