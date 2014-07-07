@@ -39,6 +39,7 @@ function selfTest(testLevel, testSelect){ //verifies cryptocurrencies.json was r
 }
 
 function coinProcessing(){
+    this.apiLiaison = function(){};//received from manager
     var coinDaemons = {};
     this.loadCryptoConfig = function (){
         for (var each in coins){ //instantiate coin objects from cryptocurrencies.json
@@ -53,7 +54,7 @@ console.log('Loading coins.');
         }
     }
 
-    function sendTx(withdrawalObj, isValid){
+    function sendTx(withdrawalObj, isValid, fnClearPending){
         console.log(withdrawalObj.external_account_id, 'is valid:',isValid);
         if (isValid != true){
             console.log('Invalid address. Rejecting.')
@@ -68,10 +69,12 @@ console.log('Loading coins.');
         console.log('Command:', withdrawalObj.currency, 'sendToAddress(', withdrawalObj.external_account_id, amount, commentTo,')');
         coinDaemons[withdrawalObj.currency].sendToAddress(withdrawalObj.external_account_id, amount, commentTo, function(err, txid, resHeaders){
             console.log('errors:', err, '\nresHeaders', resHeaders, '\ntxid:', txid);
+//if (txid){fnClearPending(id);}
+//if not, shit ten bricks
         });
     }
 
-    function validateAddress(thisWithdrawal, callback){
+    function validateAddress(thisWithdrawal, fnClearPending){
         currency = thisWithdrawal.currency;
         address = thisWithdrawal.external_account_id;
         errStr = '';
@@ -90,7 +93,7 @@ console.log('Loading coins.');
             }*/
             if (isValid.isvalid == true){
                 console.log('VALIDATED');
-                callback(thisWithdrawal, isValid.isvalid);
+                sendTx(thisWithdrawal, isValid.isvalid, fnClearPending);
                 return true;
             }else{
                 console.log('NOT VALIDATED');
@@ -103,7 +106,8 @@ console.log('Loading coins.');
         //clear pending_withdrawal
     }
 
-    this.processThis = function(withdrawalSet){//run transaction
+    this.processThis = function(withdrawalSet, fnClearPending){//run transaction
+//    this.callback = callback; on hold while alternatives are considered
         if (withdrawalSet.hasOwnProperty('withdrawals') != true){
             //console.log("No withdrawals found (withdrawalSet does not have property 'withdrawals')");
             console.log('ERROR: invalid withdrawalSet:', withdrawalSet);
@@ -112,7 +116,7 @@ console.log('Loading coins.');
         console.log('valid object:', withdrawalSet.hasOwnProperty('withdrawals'));
         for (i=0; i < withdrawalSet.withdrawals.length; i++){
             if(coinDaemons.hasOwnProperty(withdrawalSet.withdrawals[i].currency)){
-                validation = validateAddress(withdrawalSet.withdrawals[i], sendTx);
+                validation = validateAddress(withdrawalSet.withdrawals[i], fnClearPending);
             }else{
                 console.log('ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(rTxId='+ withdrawalSet.withdrawals[i].ripple_transaction_id + ') does not exist in cryptocurrencies.json. Skipping.');
                 continue;

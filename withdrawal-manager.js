@@ -2,8 +2,8 @@
 //TODO: default to polling, stream listening optional.
 
 require ("console").log;
-var stream = require ("./stream-listener.js");
-var api = require ("./api-query.js");
+//var stream = require ("./stream-listener.js");
+var apiQuery = require ("./api-query.js");
 var processing = require ("./process-withdrawal.js");
 
 var options = {
@@ -18,36 +18,39 @@ var options = {
     ]
 };
 
-args ={
-        path:{"endpoint":"pending_withdrawals"}, // will be either pending_withdrawals or deposits. later. unused right now.
-//        parameters:{arg1:"hello",arg2:"world"}, // query parameter substitution vars
-        headers:{"Accepts":"application/json"} // request headers
-      };
-
 var selfTest = 1;
 pollOrListen = ''; //if set to anything other than 'listen', module polls api every second
 txProcessor = new processing;
 txProcessor.loadCryptoConfig();
 
-function realCallback(res){
-txProcessor.processThis(res);
+function clearWithdrawal(id){
+    dest = "clear_withdrawal";
+    apiQuery(dest, processWithdrawal, id);
+    
+
+return success or fail
+}
+function processWithdrawal(pendingWithdrawals){
+    txProcessor.processThis(pendingWithdrawals, clearWithdrawal);
 };
 
 function testCallback(res){
     console.log('TESTCALLBACK:',res, '\n');
 };
 
-function middleman(){ //Couldn't find a better way to have remote.on events trigger api queries
-    api(args, realCallback);
+function getPendingWithdrawals(){ //FIXME: shouldn't need this function but need apiQuery to call processWithdrawal and that needs args
+    dest = "pending_withdrawals";
+    apiQuery(dest, processWithdrawal);
 };
 
 console.log('pollOrListen', pollOrListen);
 if (pollOrListen == "listen"){//create stream listener
     console.log('listening');
-    xx = stream(options,middleman); //events in stream call middleman
+    var stream = require ("./stream-listener.js");
+    xx = stream(options,getPendingWithdrawals); //events in stream call middleman
 }else{
     console.log('polling');
-    setInterval(api, 1000,[args, realCallback]);
+    setInterval(apiQuery, 1000,[args, processWithdrawal]);
 }
 //self-test only
 //var exampleTx = require("./exampleTX.json");
