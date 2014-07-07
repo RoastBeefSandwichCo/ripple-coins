@@ -1,0 +1,33 @@
+{
+  "withdrawals": [
+    {
+      "data": null,
+      "id": 79,
+      "amount": "0.00000009",
+      "currency": "PHC",
+      "deposit": false,
+      "external_account_id": "mkkJyeoyNokouRwKvoq3fLCpSMHj9m6dJk",
+      "status": "queued",
+      "ripple_transaction_id": 80,
+      "createdAt": "2014-05-30T19:23:48.390Z",
+      "updatedAt": "2014-05-30T19:23:48.390Z",
+      "uid": null
+    },
+    {
+      "data": null,
+      "id": 84,
+      "amount": "0.00000001",
+      "currency": "PHD",
+      "deposit": false,
+      "external_account_id": "P9cufwoUWBcqQoQsey5PsmbVPWxZJZuFq6",
+      "status": "queued",
+      "ripple_transaction_id": 85,
+      "createdAt": "2014-06-11T00:23:56.992Z",
+      "updatedAt": "2014-06-11T00:23:56.992Z",
+      "uid": null
+    }
+  ]
+
+}
+
+
