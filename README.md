@@ -10,7 +10,7 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 ##Progress
 1. Withdrawal processing
-  - Finished except for clearing withdrawals. Should be finished by July 6.
+  - Finished except for clearing withdrawals. Should be finished by July 7.
 2. Deposit processing
   - Not started. Doesn't look very hard, though... >.>
 
