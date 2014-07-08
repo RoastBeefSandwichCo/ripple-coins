@@ -11,26 +11,30 @@ var Client = require('node-rest-client').Client;
 client = new Client();
 var selfTest = 0;
 
-function apiQuery(dest, callback, argsIn = ""){
-    var args ={
-        
+function apiQuery(dest, callback, argsIn){
+    var args ={ 
         path:{"endpoint": "", "id": null}, // pending_withdrawals, clear, deposits...
 //        parameters:{arg1:"hello",arg2:"world"}, // query parameter substitution vars
         headers:{"Accepts":"application/json"} // request headers
     };
-
-switch (dest){
-    case "pending_withdrawals)":
-        args.endpoint = "pending_withdrawals";
-        break;
-    case "clear_withdrawal)":
-        args.id = argsIn;
-        args.endpoint = "withdrawals/${id}/clear";
-        break;
-    case "register_deposit":
-        args.endpoint = "yourmother";
-        break;
-
+//console.log('dest:',dest);
+    switch (dest){
+//console.log('DEST:',dest);
+        case 'pending_withdrawals':
+//console.log('dest is pending_withdrawals', dest);
+            args.path.endpoint = "pending_withdrawals";
+console.log ('endpoint = ', args.endpoint);
+            break;
+        case "clear_withdrawal":
+            args.id = argsIn;
+            args.endpoint = "withdrawals/${id}/clear";
+            break;
+        case "register_deposit":
+            args.endpoint = "yourmother";
+            break;
+    }
+console.log ('ARGS:',args);
+console.log ('ep: ${endpoint}',args);
     client.get("http://localhost:5990/v1/${endpoint}", args, function(data, response){
         console.log(Date.now());
         if (data.indexOf('Cannot GET') < 0){

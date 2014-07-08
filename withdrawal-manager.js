@@ -28,7 +28,7 @@ function clearWithdrawal(id){
     apiQuery(dest, processWithdrawal, id);
     
 
-return success or fail
+//return success or fail
 }
 function processWithdrawal(pendingWithdrawals){
     txProcessor.processThis(pendingWithdrawals, clearWithdrawal);
@@ -39,6 +39,7 @@ function testCallback(res){
 };
 
 function getPendingWithdrawals(){ //FIXME: shouldn't need this function but need apiQuery to call processWithdrawal and that needs args
+console.log('getting. dest=',dest);
     dest = "pending_withdrawals";
     apiQuery(dest, processWithdrawal);
 };
@@ -50,7 +51,8 @@ if (pollOrListen == "listen"){//create stream listener
     xx = stream(options,getPendingWithdrawals); //events in stream call middleman
 }else{
     console.log('polling');
-    setInterval(apiQuery, 1000,[args, processWithdrawal]);
+    dest = "pending_withdrawals";
+    setInterval(getPendingWithdrawals, 1000);
 }
 //self-test only
 //var exampleTx = require("./exampleTX.json");
