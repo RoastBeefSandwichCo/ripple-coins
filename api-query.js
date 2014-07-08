@@ -17,16 +17,11 @@ function apiQuery(dest, callback, argsIn){
 //        parameters:{arg1:"hello",arg2:"world"}, // query parameter substitution vars
         headers:{"Accepts":"application/json"} // request headers
     };
-//console.log('dest:',dest);
     switch (dest){
-//console.log('DEST:',dest);
         case 'pending_withdrawals':
-//console.log('dest is pending_withdrawals', dest);
             args.path.endpoint = "pending_withdrawals";
-console.log ('endpoint = ', args.endpoint);
             break;
         case "clear_withdrawal":
-            //args.path.id = argsIn;
             args.path.endpoint = "withdrawals/" + argsIn + "/clear";
             break;
         case "register_deposit":
@@ -50,6 +45,10 @@ console.log ('ep: ${endpoint}',args);
             }
         }else{
             console.log('apiQuery>ERROR:',data);
+                if (dest == 'clear_withdrawal'){
+                    console.log ('WITHDRAWAL PROCESSED(?) BUT NOT CLEARED. You may now shit bricks.');
+                    return false;
+                }
             //jsData = data;
         }
 //        callback(jsData);

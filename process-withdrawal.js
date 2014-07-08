@@ -70,9 +70,12 @@ console.log('Loading coins.');
         coinDaemons[withdrawalObj.currency].sendToAddress(withdrawalObj.external_account_id, amount, commentTo, function(err, txid, resHeaders){
             console.log('errors:', err, '\nresHeaders', resHeaders, '\ntxid:', txid);
             if (txid != undefined ){
-              fnClearPending(withdrawalObj.id);
+                console.log('Transaction sent! TXID:',txid);            
+                fnClearPending(withdrawalObj.id);
+                return true;
             }else{
-            console.log('shit bricks!');// not, shit ten bricks
+                console.log('process-withdrawal>sendTx>Transaction failed. See above.');// not, shit ten bricks
+                return false;
             }
         });
     }
