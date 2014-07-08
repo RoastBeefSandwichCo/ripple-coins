@@ -26,8 +26,8 @@ function apiQuery(dest, callback, argsIn){
 console.log ('endpoint = ', args.endpoint);
             break;
         case "clear_withdrawal":
-            args.id = argsIn;
-            args.endpoint = "withdrawals/${id}/clear";
+            //args.path.id = argsIn;
+            args.path.endpoint = "withdrawals/" + argsIn + "/clear";
             break;
         case "register_deposit":
             args.endpoint = "yourmother";

@@ -24,6 +24,7 @@ txProcessor = new processing;
 txProcessor.loadCryptoConfig();
 
 function clearWithdrawal(id){
+console.log ('clearWithdrawal> clearWithdrawal called');
     dest = "clear_withdrawal";
     apiQuery(dest, processWithdrawal, id);
     
@@ -56,6 +57,10 @@ if (pollOrListen == "listen"){//create stream listener
 }
 //self-test only
 //var exampleTx = require("./exampleTX.json");
-
+sometestvar = true;
+if (sometestvar == true){
+    var exampleTx = require("./exampleTX.json");
+    processWithdrawal(exampleTx);
+}
 
 

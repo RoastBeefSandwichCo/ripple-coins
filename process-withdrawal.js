@@ -69,8 +69,11 @@ console.log('Loading coins.');
         console.log('Command:', withdrawalObj.currency, 'sendToAddress(', withdrawalObj.external_account_id, amount, commentTo,')');
         coinDaemons[withdrawalObj.currency].sendToAddress(withdrawalObj.external_account_id, amount, commentTo, function(err, txid, resHeaders){
             console.log('errors:', err, '\nresHeaders', resHeaders, '\ntxid:', txid);
-//if (txid){fnClearPending(id);}
-//if not, shit ten bricks
+            if (txid != undefined ){
+              fnClearPending(withdrawalObj.id);
+            }else{
+            console.log('shit bricks!');// not, shit ten bricks
+            }
         });
     }
 
@@ -129,7 +132,7 @@ console.log('Loading coins.');
 
 runSelfTest = false;
 testLevel = 0;
-testSelect = ''; //options: tx
+testSelect = 'tx'; //options: tx
 //end test vars
 console.log('runSelfTest:', runSelfTest);
 console.log('testLevel=', testLevel);

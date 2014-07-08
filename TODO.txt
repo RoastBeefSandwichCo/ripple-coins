@@ -1,5 +1,6 @@
 process-withdrawal.js
 1    clear withdrawals (is stub)
+2 handle daemon offline
 
 api-query
 W    handle rest-offline
