@@ -1,0 +1,15 @@
+Documentation of currently unhandled errors
+
+Daemon offline looks like this: (also rpc misconfiguration?)
+
+errors: { [Error: connect ECONNREFUSED]
+  code: 'ECONNREFUSED',
+  errno: 'ECONNREFUSED',
+  syscall: 'connect' } 
+isValid: undefined 
+resHeaders undefined
+
+
+Rest offline
+
+
