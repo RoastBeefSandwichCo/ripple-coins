@@ -3,8 +3,8 @@ It watches for ledger_closes to trigger queries to the REST api for pending depo
 */
 
 require ("console").log;
-//require ("debug").log;
 var Remote = require('ripple-lib').Remote;
+logprefix = 'stream-listener';
 
 function rippledApiListener(options, callback){
     var remote = new Remote(options);
@@ -14,17 +14,17 @@ function rippledApiListener(options, callback){
     });
 
     request.on('error', function(err) { // Oh, there's the failure handling.
-      console.log("CAUSE FUCK YOU! THAT'S WHY!",err);
+      console.log(logprefix, "Something went wrong:",err);
     });
 
     request.on('ledger_closed', function(res){
-        console.log('Listener>Ledger close received\n');
+        console.log(logprefix, 'Ledger close received\n');
         callback(res); //manager's provided callback
     });
 };
 
 function testCallback(res){
-    console.log(res);
+    console.log(logprefix, res);
 };
 
 function selfTest(){

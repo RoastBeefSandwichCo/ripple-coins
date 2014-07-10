@@ -1,12 +1,13 @@
-//manager listener and api query
-//TODO: default to polling, stream listening optional.
+//This module coordinates listening, polling of API, withdrawal processing and clearing
+//I don't know if it's best practice but it makes it easier for me to follow and debug
+//TODO: start using config.json
 
 require ("console").log;
-//var stream = require ("./stream-listener.js");
 var apiQuery = require ("./api-query.js");
 var processing = require ("./process-withdrawal.js");
+logprefix = 'withdrawal-manager'; 
 
-var options = {
+var options = {//move to config
     trace: false,
     "streams" : ['ledger'],
     servers :[
@@ -16,42 +17,40 @@ var options = {
                 id : 0
         }
     ]
-};
+ };
 
 var selfTest = 1;
-pollOrListen = ''; //if set to anything other than 'listen', module polls api every second
+pollOrListen = ''; //if set to anything other than 'listen', module polls api every second ... move to config
 txProcessor = new processing;
 txProcessor.loadCryptoConfig();
 
 function clearWithdrawal(id){
-console.log ('clearWithdrawal> clearWithdrawal called');
+    console.log (logprefix, 'clearWithdrawal called', id);
     dest = "clear_withdrawal";
     apiQuery(dest, processWithdrawal, id);
-    
-
-//return success or fail
 }
+
 function processWithdrawal(pendingWithdrawals){
     txProcessor.processThis(pendingWithdrawals, clearWithdrawal);
 };
 
 function testCallback(res){
-    console.log('TESTCALLBACK:',res, '\n');
+    console.log(logprefix, 'TESTCALLBACK:',res, '\n');
 };
 
-function getPendingWithdrawals(){ //FIXME: shouldn't need this function but need apiQuery to call processWithdrawal and that needs args
-console.log('getting. dest=',dest);
+function getPendingWithdrawals(){
+console.log(logprefix, 'getting. dest=',dest);
     dest = "pending_withdrawals";
     apiQuery(dest, processWithdrawal);
 };
 
-console.log('pollOrListen', pollOrListen);
+console.log(logprefix, 'pollOrListen', pollOrListen);//get from config
 if (pollOrListen == "listen"){//create stream listener
-    console.log('listening');
+    console.log(logprefix, 'listening');
     var stream = require ("./stream-listener.js");
     xx = stream(options,getPendingWithdrawals); //events in stream call middleman
-}else{
-    console.log('polling');
+}else{// use polling interval from config
+    console.log(logprefix, 'polling');
     dest = "pending_withdrawals";
     setInterval(getPendingWithdrawals, 1000);
 }

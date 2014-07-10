@@ -1,3 +1,16 @@
 {
-    "pollOrListen": "listen"
+    "pollOrListenAPI": "poll",
+    "pollIntervalAPI": 1,
+    "pollOrListenCoins": "poll",
+    "pollOrListenIntervalCoins": 300,
+    streamListenOptions = {
+        trace: false,
+        "streams" : ['ledger'],
+        servers :[
+            {
+                    host : 's1.ripple.com',
+                    port : 443,
+                    id : 0
+            }
+        ]
 }
