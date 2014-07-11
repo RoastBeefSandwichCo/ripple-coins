@@ -46,7 +46,7 @@ Assuming a gateway-hosted wallet:
 (One table should store all crypto transactions for all coins)
 (Unsure if wallets with >100 addresses will require additional steps)
 
-4) Add transaction to tx db, mark outstanding
+4) Add new transactions to tx db, mark outstanding
 
 5) Process outstanding deposits by submitting deposit requests to gatewayd via API
 
