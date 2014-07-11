@@ -8,7 +8,7 @@ the sense that I'm examining how best to do it. Like Maniac Magee who
 stared at Cobble's Knot for half the day. Only I don't get free pizza
 for a year. Well maybe I do. Buy me pizza! So anyway...
 
-
+Here are some possible strategies.
 More than one way to skin a cat, they say.
 But how many right ways? Below, the current fruits of brainstorming.
 
