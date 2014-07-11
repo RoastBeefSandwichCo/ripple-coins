@@ -18,7 +18,7 @@ can run a script that will receive the txid, get tx info from coin daemon
 and update a database that can be polled for new transactions
   B) Poll the database from a deposit-manager script, mark as "Started"
   C) Submit deposit request to gatewayd via API
-  D) Poll API for deposit clearing, update database to reflect completion
+  D) Poll gatewayd API for deposit clearing, update database to reflect completion
   Alternatively, the walletnotify.js could connect to a listening websocket
 belonging to deposit-manager and eliminate the need for polling altogether.
 Still, there's a need for checking for missed transactions and a need for
