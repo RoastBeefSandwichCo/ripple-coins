@@ -1,12 +1,13 @@
-process-withdrawal.js
-1    clear withdrawals (is stub)
-2 handle daemon offline
+1 [process asset deposits](https://github.com/ninobrooks/ripple-coins/blob/master/README-deposits.txt)
+1 move coinProcessing object out of process-withdrawals
+
 
 api-query
-W    handle rest-offline
-
+W handle rest-offline
+W handle daemon offline
+W update self-tests
 Other:
-daemon-listener/poller for deposits and associated logic
+
 
 
 W = Wishlist
