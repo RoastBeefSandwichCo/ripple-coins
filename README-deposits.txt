@@ -1,7 +1,7 @@
 Withdrawal handling at a basic level is done. It could use more informative
 and detailed error-handling and the code definitely needs to be polished
 but it's time to move forward and get more breadth of features before
-obsessing about the details.
+obsessing about the details. In other words, close the gap to a release.
 
 Deposit handling is the other half and work on that has only begun in
 the sense that I'm examining how best to do it. Like Maniac Magee who
