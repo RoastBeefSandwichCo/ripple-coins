@@ -21,7 +21,6 @@ A. External to module:
   1. walletnotify="/usr/bin/node walletnotify.js %s" //Added to <coin>.conf, this option
 can run a script that will receive the txid, get tx info from coin daemon
 and update a database that can be polled for new transactions
-
   2. Poll the database from a deposit-manager script, mark as "Started"
   3. Submit deposit request to gatewayd via API
   4. Poll gatewayd API for deposit clearing, update database to reflect completion
@@ -45,25 +44,16 @@ Option B is simpler. I think. Still comparing.
 One possible programmatic workflow, assuming a gateway-hosted wallet:
 1. Attach a coin address to a ripple ID and/or an external user ID.
  (One table should store all rippleID-wallet-externalID associations for all coins)
-
 2. Mark current block -1 as last block checked in transaction db
 (One table should store all 'last block checked' for all coins)
-
 3. Query coin daemon every 5 minutes for transactions to all addresses since last block checked
 (One table should store all crypto transactions for all coins)
 (Unsure if wallets with >100 addresses will require additional steps)
-
 4. Add new transactions to tx db, mark outstanding
-
 5. Process outstanding deposits by submitting deposit requests to gatewayd via API
-
 6. Update last block checked
-
 7. Poll for deposit clearing (this needs to be fleshed out)
-
 8. Mark deposit cleared in tx db
-
 9. Begin again at step 3
-
 
 This is a bit of a draft. Input is hereby solicited.
