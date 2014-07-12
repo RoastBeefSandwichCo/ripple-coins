@@ -1,3 +1,6 @@
+Deposits
+============
+## Status
 Withdrawal handling at a basic level is done. It could use more informative
 and detailed error-handling and the code definitely needs to be polished
 but it's time to move forward and get more breadth of features before
@@ -12,8 +15,9 @@ Here are some possible strategies.
 More than one way to skin a cat, they say.
 But how many right ways? Below, the current fruits of brainstorming.
 
-1) external to module:
-  A) walletnotify="/usr/bin/node walletnotify.js %s" //Added to <coin>.conf, this option
+## Proposals
+1. external to module:
+  A. walletnotify="/usr/bin/node walletnotify.js %s" //Added to <coin>.conf, this option
 can run a script that will receive the txid, get tx info from coin daemon
 and update a database that can be polled for new transactions
   B) Poll the database from a deposit-manager script, mark as "Started"
@@ -24,7 +28,7 @@ belonging to deposit-manager and eliminate the need for polling altogether.
 Still, there's a need for checking for missed transactions and a need for
 a db to map addresses to (non-ripple) accounts to (ripple) IDs
 
-2) Purely internal
+2. Purely internal
   A) Poll the daemon using listsinceblock
   B) Track last block checked via db
   
@@ -34,29 +38,30 @@ and enable real-time transaction alerts. As real-time as coins get, anyway.
 Option 2 is simpler. I think. Still comparing.
 
 
-Anyway, here's one possible programmatic workflow:
+## Example workflow
+  - One possible programmatic workflow:
 Assuming a gateway-hosted wallet:
-1) Attach a coin address to a ripple ID and/or an external user ID.
+1. Attach a coin address to a ripple ID and/or an external user ID.
  (One table should store all rippleID-wallet-externalID associations for all coins)
 
-2) Mark current block -1 as last block checked in transaction db
+2. Mark current block -1 as last block checked in transaction db
 (One table should store all 'last block checked' for all coins)
 
-3) Query coin daemon every 5 minutes for transactions to all addresses since last block checked
+3. Query coin daemon every 5 minutes for transactions to all addresses since last block checked
 (One table should store all crypto transactions for all coins)
 (Unsure if wallets with >100 addresses will require additional steps)
 
-4) Add new transactions to tx db, mark outstanding
+4. Add new transactions to tx db, mark outstanding
 
-5) Process outstanding deposits by submitting deposit requests to gatewayd via API
+5. Process outstanding deposits by submitting deposit requests to gatewayd via API
 
-6) Update last block checked
+6. Update last block checked
 
-7) Poll for deposit clearing (this needs to be fleshed out)
+7. Poll for deposit clearing (this needs to be fleshed out)
 
-8) Mark deposit cleared in tx db
+8. Mark deposit cleared in tx db
 
-9) Begin again at step 3
+9. Begin again at step 3
 
 
 This is a bit of a draft. Input is hereby solicited.
