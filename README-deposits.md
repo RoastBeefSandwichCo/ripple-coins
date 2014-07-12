@@ -17,13 +17,14 @@ But how many right ways? Below, the current fruits of brainstorming.
 
 ##Proposals
 
-1. external to module:
- A. walletnotify="/usr/bin/node walletnotify.js %s" //Added to <coin>.conf, this option
+A. External to module:
+  1. walletnotify="/usr/bin/node walletnotify.js %s" //Added to <coin>.conf, this option
 can run a script that will receive the txid, get tx info from coin daemon
 and update a database that can be polled for new transactions
- B. Poll the database from a deposit-manager script, mark as "Started"
-  C) Submit deposit request to gatewayd via API
-  D) Poll gatewayd API for deposit clearing, update database to reflect completion
+
+  2. Poll the database from a deposit-manager script, mark as "Started"
+  3. Submit deposit request to gatewayd via API
+  4. Poll gatewayd API for deposit clearing, update database to reflect completion
   Alternatively, the walletnotify.js could connect to a listening websocket
 belonging to deposit-manager and eliminate the need for polling altogether.
 Still, there's a need for checking for missed transactions and a need for
