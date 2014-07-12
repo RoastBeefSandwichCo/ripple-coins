@@ -1,2 +1,5 @@
-Replaced by https://github.com/ninobrooks/ripple-coins/edit/master/README-deposits.md for readability
+Replaced by
+
+HTTPS://GITHUB.COM/NINOBROOKS/RIPPLECOINS/BLOB/MASTER/README-deposits.md
+
 Delete on 7/31/2014
