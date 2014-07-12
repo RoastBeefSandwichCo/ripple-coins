@@ -40,9 +40,8 @@ Option 2 is simpler. I think. Still comparing.
 
 
 ##Example workflow
-  - One possible programmatic workflow:
-Assuming a gateway-hosted wallet:
-1. Attach a coin address to a ripple ID and/or an external user ID.
+One possible programmatic workflow, assuming a gateway-hosted wallet:
+- Attach a coin address to a ripple ID and/or an external user ID.
  (One table should store all rippleID-wallet-externalID associations for all coins)
 
 2. Mark current block -1 as last block checked in transaction db
