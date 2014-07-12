@@ -16,6 +16,7 @@ More than one way to skin a cat, they say.
 But how many right ways? Below, the current fruits of brainstorming.
 
 ##Proposals
+
 1. external to module:
   A. walletnotify="/usr/bin/node walletnotify.js %s" //Added to <coin>.conf, this option
 can run a script that will receive the txid, get tx info from coin daemon
