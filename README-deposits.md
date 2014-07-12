@@ -30,14 +30,15 @@ belonging to deposit-manager and eliminate the need for polling altogether.
 Still, there's a need for checking for missed transactions and a need for
 a db to map addresses to (non-ripple) accounts to (ripple) IDs
 
-2. Purely internal
-  A) Poll the daemon using listsinceblock
-  B) Track last block checked via db
-  
-Option 1 is more complicated to implement but may be able to eliminate polling entirely
+B. Purely internal
+  1. Poll the daemon using listsinceblock
+  2. Track last block checked via db
+  3. As with Option A, submit deposit to gatewayd via API, check for clearing, etc.
+
+Option A is more complicated to implement but may be able to eliminate polling entirely
 and enable real-time transaction alerts. As real-time as coins get, anyway.
 
-Option 2 is simpler. I think. Still comparing.
+Option B is simpler. I think. Still comparing. 
 
 
 ##Example workflow
