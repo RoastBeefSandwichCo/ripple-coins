@@ -10,10 +10,10 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 ##Progress
 1. Withdrawal processing
-  - Finished except for clearing withdrawals. Should be finished by July 7.
+  - Finished but needs to be polished.
 2. Deposit processing
-  - Not started. Doesn't look very hard, though... >.>
   - [Deposits Outline](https://github.com/ninobrooks/ripple-coins/blob/master/README-deposits.txt)
+3. Brooks is AFK till Monday. Family stuff.
 
 ## Dependencies
 
