@@ -1,6 +1,6 @@
 Deposits
 ============
-## Status
+##Status
 Withdrawal handling at a basic level is done. It could use more informative
 and detailed error-handling and the code definitely needs to be polished
 but it's time to move forward and get more breadth of features before
@@ -15,7 +15,7 @@ Here are some possible strategies.
 More than one way to skin a cat, they say.
 But how many right ways? Below, the current fruits of brainstorming.
 
-## Proposals
+##Proposals
 1. external to module:
   A. walletnotify="/usr/bin/node walletnotify.js %s" //Added to <coin>.conf, this option
 can run a script that will receive the txid, get tx info from coin daemon
@@ -38,7 +38,7 @@ and enable real-time transaction alerts. As real-time as coins get, anyway.
 Option 2 is simpler. I think. Still comparing.
 
 
-## Example workflow
+##Example workflow
   - One possible programmatic workflow:
 Assuming a gateway-hosted wallet:
 1. Attach a coin address to a ripple ID and/or an external user ID.
