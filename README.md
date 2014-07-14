@@ -25,7 +25,7 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
   - Used by our modules to retrieve and clear pending deposits and withdrawals
 
 3. [Node.js](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
-  - Runs the connector
+  - Runs the connector. Must be 0.1+ see link.
 
 4. [node-postgres](https://github.com/brianc/node-postgres)
   - Ripple-rest uses postgres so we do, too. brianc's client provides interface to store tx info and user-account map.
