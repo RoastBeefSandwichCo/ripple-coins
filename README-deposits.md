@@ -1,3 +1,8 @@
+Will no longer be maintained effective July 14.
+Instead, see [issues](https://github.com/ninobrooks/ripple-coins/issues?state=open)
+
+
+
 Deposits
 ============
 ##Status
