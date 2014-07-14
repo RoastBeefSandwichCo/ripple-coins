@@ -2,20 +2,39 @@ Deposits
 ============
 ##Status
 Withdrawal handling at a basic level is done. It could use more informative
-and detailed error-handling and the code definitely needs to be polished
-but it's time to move forward and get more breadth of features before
-obsessing about the details. In other words, close the gap to a release.
+and detailed error-handling and the code definitely needs to be polished so
+if anyone would like to do that, have at it. For me, it's time to move forward
+and get more breadth of features before obsessing about the details.
+In other words, close the gap to a release.
 
-Deposit handling is the other half and work on that has only begun in
-the sense that I'm examining how best to do it. Like Maniac Magee who
-stared at Cobble's Knot for half the day. Only I don't get free pizza
-for a year. Well maybe I do. Buy me pizza! So anyway...
+Which brings us to...
 
-Here are some possible strategies.
-More than one way to skin a cat, they say.
-But how many right ways? Below, the current fruits of brainstorming.
+Deposit handling is the gap we need to cover. For those interested in contributing,
+here's how I'm doing it and what is needed:
 
-##Proposals
+*Proposals section has been moved to the end so I can scrape ideas from it to improve
+the connector later. For now, LET'S. SHIP.
+
+
+##Goal and Task breakdown
+
+Brooks:
+Implementing postgres database for mapping ripple accounts to coin addresses to external
+addresses (external address = non-ripple non-coin user id for use by gateway operator)
+and for tracking last block checked for each coin.
+
+Anyone else:
+Coin daemons are managed as a collection of connection objects mapped to coin names
+read from cryptocurrencies.json. Currently, reading the json file and creating the
+connections is done in coinProcessing in the process-withdrawal.js. Which is wrong.
+Separate it into its own module for more readable instantiation (by withdrawal-manager,
+probably) and calls (from process-withdrawal and check-for-deposits (doesn't exist yet).
+
+More useful info later. Going to use issue tracking or milestones or something.
+
+
+##Proposals // Settled. Use listsinceblock (B). Leaving this here to use for improvement
+later (like optional walletnotify to improve notification times)
 
 A. External to module:
   1. walletnotify="/usr/bin/node walletnotify.js %s" //Added to <coin>.conf, this option
