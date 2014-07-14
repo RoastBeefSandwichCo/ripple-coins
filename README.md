@@ -13,7 +13,7 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
   - Finished but needs to be polished.
 2. Deposit processing
   - [Deposits Outline](https://github.com/ninobrooks/ripple-coins/blob/master/README-deposits.txt)
-3. Brooks is AFK till Monday. Family stuff.
+  - Brooks adding db for user-account mapping. Need something to do? Move the coin-daemon object pool (process-withdrawals->coinProcessing) out of the process-withdrawal module and into its own.
 
 ## Dependencies
 
