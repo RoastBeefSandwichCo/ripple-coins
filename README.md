@@ -63,3 +63,4 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
   - LTC LgaoNgSNxJwyno61edyRUz2ZKFkgPQYV5t
   - DOGE D7U9VyJsStZ23MPgTr2TxGLj4bdfs69b8e
   - Ripples!(XRP) rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs
+  - Ironically(?), at least one dev is bein paid in Stellars. Contribute those, too! User: ninobrooks
