@@ -12,8 +12,7 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 1. Withdrawal processing
   - Finished but needs to be polished.
 2. Deposit processing
-  - [Deposits Outline](https://github.com/ninobrooks/ripple-coins/blob/master/README-deposits.txt)
-  - Brooks adding db for user-account mapping. Need something to do? Move the coin-daemon object pool (process-withdrawals->coinProcessing) out of the process-withdrawal module and into its own.
+  - See Issues 1,2,3.
 
 ## Dependencies
 
