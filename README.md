@@ -20,17 +20,11 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
   - Provides easy deposit and withdrawal management (and endpoints in Ripple REST)
   - Provides [Node.js](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager), [Ripple REST API](https://github.com/ripple/ripple-rest.git)
 
-2. [node-postgres](https://github.com/brianc/node-postgres)
-  - Since gatewayd uses postgres, provides migrations and more, this module may not be necessary. Will know after deposit-management development begins.
-
-3. [node-bitcoin](https://www.npmjs.org/package/bitcoin)
+2. [node-bitcoin](https://www.npmjs.org/package/bitcoin)
   - Node module providing *coin connection objects
 
-4. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)
+3. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)
   - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (sendtoaddress, sendfromaccount...) should do.
-
-5. (Optional) [Ripple lib](https://github.com/ripple/ripple-lib)
-  - By default, the connector polls the API. Alternatively, ripple-lib's Remote can be used to listen for ledger closes.
 
 ## Installation
  - Install the dependencies in the cloned source folder. Node package coming soon.
