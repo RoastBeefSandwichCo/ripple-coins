@@ -1,3 +1,5 @@
+var CryptoCoinBridge = require(__dirname+'/../lib/bridge.js');
+var gatewayd = require("/path/to/gatewayd");
 var RIPPLE_ADDRESS = '';
 var COIN_ADDRESS = '';
 var COIN_TRANSACTION_HASH = '';
@@ -8,7 +10,8 @@ describe('Crypto Coin Inbound Bridge', function() {
       bridge = new CryptoCoinBridge({
         rippleAddress: RIPPLE_ADDRESS,
         coinAddress: COIN_ADDRESS,
-        coin: 'BTC'
+        coin: 'BTC',
+        gatewayd: gatewayd
       });
     });
 
@@ -41,7 +44,7 @@ describe('Crypto Coin Inbound Bridge', function() {
 
   describe('a bridge with a non-zero fee', function() {
     before(function() {
-      bridge = new BitcoinToRippleBridge({
+      bridge = new CryptoCoinBridge({
         rippleAddress: RIPPLE_ADDRESS,
         bitcoinAddress: COIN_ADDRESS,
         fee: 0.01 // 1%
