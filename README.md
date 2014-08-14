@@ -35,6 +35,13 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 ## Installation
  - Install the dependencies in the cloned source folder. Node package coming soon.
 
+## Tests
+
+Run this tests with mocha
+
+    npm install -g mocha
+    mocha -R spec test/
+
 ## Usage
  - During development
    - Ripple-rest must be running. Gatewayd optional unless testing pending_withdrawal/deposits endpoints which are provided to the RESTful API by gatewayd.
