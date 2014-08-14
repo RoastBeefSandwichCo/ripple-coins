@@ -42,8 +42,8 @@ describe('Crypto Coin Inbound Bridge', function() {
   describe('a bridge with a non-zero fee', function() {
     before(function() {
       bridge = new BitcoinToRippleBridge({
-        rippleAddress: '',
-        bitcoinAddress: '',
+        rippleAddress: RIPPLE_ADDRESS,
+        bitcoinAddress: COIN_ADDRESS,
         fee: 0.01 // 1%
       });
     });
