@@ -1,4 +1,4 @@
-var CryptoCoinBridge = require(__dirname+'/../lib/bridge.js');
+var CryptoCoinBridge = require(__dirname+'/../lib/crypto_coin_bridge.js');
 var gatewayd = require("/path/to/gatewayd");
 var RIPPLE_ADDRESS = '';
 var COIN_ADDRESS = '';
