@@ -27,8 +27,10 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
   - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (sendtoaddress, sendfromaccount...) should do.
 
 ## Installation
- - Install the dependencies in the cloned source folder. Node package coming soon.
-
+ - Development: clone this repo inside the gatewayd folder (consistent paths)
+   - Install the dependencies in the cloned source folder. Node package on wishlist.
+ - Production: npm install inside gatewayd folder.
+ 
 ## Tests
 
 Run this tests with mocha
