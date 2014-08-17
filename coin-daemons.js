@@ -19,7 +19,7 @@ loadCryptoConfig = function (){
 //             console.log(logPrefix);
 
         coinDaemons[each] = new bitcoin.Client({ //Name of coin is name of object
-            host: 'localhost',
+            host: coins[each].host,
             port: coins[each].port,
             user: coins[each].rpcusername,
             pass: coins[each].rpcpassword,

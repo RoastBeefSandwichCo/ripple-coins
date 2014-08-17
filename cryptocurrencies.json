@@ -2,6 +2,7 @@
     "PHC" : {
             "coindaemon" : "phcoind",
             "sendfrom" : "PG9J1iziEyg6f8TW53oJU3NEC68H2aJ4BW",
+            "host" : "localhost",
             "rpcusername" : "somename",
             "rpcpassword" : "4fvBAs6aTQVX2cZ19SAqch2XkZnr6by9EZhGudqtyYqf",
             "port" : 4150,
