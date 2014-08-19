@@ -1,5 +1,5 @@
 1 [process asset deposits](https://github.com/ninobrooks/ripple-coins/blob/master/README-deposits.txt)
-1 move coinProcessing object out of process-withdrawals
+workin -> 1 move coinProcessing object out of process-withdrawals
 
 
 api-query

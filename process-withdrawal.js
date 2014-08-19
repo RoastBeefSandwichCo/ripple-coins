@@ -1,12 +1,13 @@
 //Reads withdrawals object, sends transactions
 //TODO: handle address validation quirk
 //TODO: re-examine self-tests
-var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin greatly simplifies interfacing with coin daemons
+var bitcoin = require ('node-dogecoin'); //https://www.npmjs.org/package/bitcoin greatly simplifies interfacing with coin daemons
 var coins = require ("./cryptocurrencies.json");//coin configurations
-
+var coinDaemons = require ("coin-daemons.js";)
 //var coinDaemons = {};
 sep = '\n--------------------------------------------------------\n';
 logPrefix = 'process-withdrawal';
+
 //keeping this around since it also shows rpc methods available
 function showCollection(objCollection){//shows properties of objects in a collection. Like port/host/userpass of each coin in cryptocurrencies.json
     console.log(logPrefix, 'selfTest!');
@@ -39,21 +40,6 @@ function selfTest(testLevel, testSelect){ //has not been kept up. Some functions
 }
 
 function coinProcessing(){
-    var coinDaemons = {};
-    this.loadCryptoConfig = function (){
-    console.log(logPrefix, 'Loading coins.');
-        for (var each in coins){ //instantiate coin objects from cryptocurrencies.json
-            coinDaemons[each] = new bitcoin.Client({ //Name of coin is name of object
-                host: 'localhost',
-                port: coins[each].port,
-                user: coins[each].rpcusername,
-                pass: coins[each].rpcpassword,
-                //coin polling interval here
-                timeout: 30000
-            });
-        }
-    }
-
     function sendTx(withdrawalObj, isValid, fnClearPending){
         console.log(logPrefix, withdrawalObj.external_account_id, 'is valid:',isValid);
         if (isValid != true){
