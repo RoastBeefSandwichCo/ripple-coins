@@ -1,6 +1,6 @@
 //Work in progress to modularize coin daemon pool creation
 
-var bitcoin = require ('node-dogecoin'); //https://www.npmjs.org/package/bitcoin greatly simplifies interfacing with coin daemons
+var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin greatly simplifies interfacing with coin daemons
 var coins = require ("./cryptocurrencies.json");//coin configurations
 var thisWithdrawal = require ("./exampleTX.json")
 
