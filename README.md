@@ -10,9 +10,9 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 ##Progress
 1. Withdrawal processing
-  - Finished but needs to be polished.
+  - Finished but needs to be polished. (Thanks for the help, McShane!)
 2. Deposit processing
-  - See Issues 1,2,3.
+  - ~~See Issues 1,2,3.~~ Deposit processing is being developed by Steven [here](https://github.com/stevenzeiler/blockchain-account-monitor) and in our fork [here](https://github.com/RoastBeefSandwichCo/blockchain-account-monitor). On completion, I aim to unify them. Thanks for still MORE fabulous work, man. You are win.
 
 ## Dependencies
 
@@ -22,12 +22,13 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
 
 2. [node-bitcoin](https://www.npmjs.org/package/bitcoin)
   - Node module providing *coin connection objects
+  - Moving to [node-dogecoin](https://www.npmjs.org/package/node-dogecoin)!
 
-3. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)
+3. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)(local or remote)
   - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (sendtoaddress, sendfromaccount...) should do.
 
 ## Installation
- - Development: clone this repo inside the gatewayd folder (consistent paths)
+ - Development: clone the repo inside the gatewayd folder (consistent paths). Note the new development branch which is pretty much guaranteed to be broken. :D
    - Install the dependencies in the cloned source folder. Node package on wishlist.
  - Production: npm install inside gatewayd folder.
  
@@ -40,7 +41,7 @@ Run this tests with mocha
 
 ## Usage
  - During development
-   - Ripple-rest must be running. Gatewayd optional unless testing pending_withdrawal/deposits endpoints which are provided to the RESTful API by gatewayd.
+   - While testing deposits/withdrawals, Gatewayd must be running. And a coin daemon. Duh.
    - Run with "node module-being-tested". withdrawal-manager.js is the main module for now.
 
 ##Processes:
@@ -50,7 +51,8 @@ Run this tests with mocha
    - [Clear withdrawal](https://github.com/ripple/gatewayd#clearing-a-withdrawal) using RESTful API
  2. Automatically issue IOUs for external deposits (cryptocurrency from user to own crypto address)
    - Listen to coin daemon for received transactions
-   - [Submit deposit](https://github.com/ripple/gatewayd#creating-a-deposit) via RESTful API for gatewayd processing
+   - On receipt of assets, submit deposit using gatewayd.data.models.externalAccounts and gatewayd.data.models.externalTransactions [as seen on TV](https://github.com/RoastBeefSandwichCo/blockchain-account-monitor/blob/master/test/processor-snippet.js)
+
 
 ## TODO:
  - List unsupported coins
@@ -62,8 +64,10 @@ Run this tests with mocha
  - To everyone who donates, contributes code, or has developed a module I'm using. In particular (and besides Ripple Labs in general), thank you Steven Zeiler and others for all your work on gatewayd, and freewil and company for node-bitcoin which has saved me quite some work.
 
 ##Donate
+  - Presently, raising funds for hardware upgrades. If you would like to donate hardware, please contact me directly!
   - BTC 1K2BZ3XxpRNiNissEHoVcrCv3tEqEsHP28
   - LTC LgaoNgSNxJwyno61edyRUz2ZKFkgPQYV5t
   - DOGE D7U9VyJsStZ23MPgTr2TxGLj4bdfs69b8e
   - Ripples!(XRP) rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs
   - Ironically(?), at least one dev is being paid in Stellars. Contribute those, too! User: ninobrooks
+
