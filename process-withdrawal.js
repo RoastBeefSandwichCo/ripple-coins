@@ -39,11 +39,12 @@ function selfTest(testLevel, testSelect){ //has not been kept up. Some functions
 }
 
 function coinProcessing(){
+    
     function clearWithdrawal(){
         //clear pending_withdrawal
     }
 
-    this.processThis = function(withdrawalSet, fnClearPending){//run transaction
+    function processThis (withdrawalSet, fnClearPending){//run transaction
 //    this.callback = callback; on hold while alternatives are considered
         if (withdrawalSet.hasOwnProperty('withdrawals') != true){
             //console.log("No withdrawals found (withdrawalSet does not have property 'withdrawals')");
