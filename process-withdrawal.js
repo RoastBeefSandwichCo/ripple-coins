@@ -1,10 +1,10 @@
 //Reads withdrawals object, sends transactions
 //TODO: handle address validation quirk
 //TODO: re-examine self-tests
-var bitcoin = require ('node-dogecoin'); //https://www.npmjs.org/package/bitcoin greatly simplifies interfacing with coin daemons
+var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin greatly simplifies interfacing with coin daemons
 var coins = require ("./cryptocurrencies.json");//coin configurations
-var coinDaemons = require ("coin-daemons.js";)
-var transactions = require ("./lib/outgoing-bridge.js")
+var coinDaemons = require ("./coin-daemons.js");
+var transactions = require ("./lib/outgoing-bridge.js");
 //var coinDaemons = {};
 sep = '\n--------------------------------------------------------\n';
 logPrefix = 'process-withdrawal';
@@ -32,7 +32,7 @@ function selfTest(testLevel, testSelect){ //has not been kept up. Some functions
     if (testSelect != ''){
         if (testSelect.indexOf('tx' >0)){
             console.log(sep, logPrefix, 'Testing coinDaemon method calls using an example transaction. THIS WILL SEND CRYPTO so you should be on testnet!!!', sep);
-            procTest = new coinProcessing();
+            procTest = new transactions();
             procTest.loadCryptoConfig();
             procTest.processThis(exampleTx, fnClearPending = function (){console.log(logPrefix, 'fnClearPending dummy function.');});
         }
@@ -82,4 +82,4 @@ if (runSelfTest == true){
     selfTest(testLevel, testSelect);
 }
 
-module.exports = coinProcessing;
+module.exports = transactions;
