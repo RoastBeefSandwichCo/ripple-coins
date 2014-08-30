@@ -33,35 +33,30 @@ function selfTest(testLevel, testSelect){ //has not been kept up. Some functions
         if (testSelect.indexOf('tx' >0)){
             console.log(sep, logPrefix, 'Testing coinDaemon method calls using an example transaction. THIS WILL SEND CRYPTO so you should be on testnet!!!', sep);
             testDaemons = new transactions();
-            coinProcessing.processThis(exampleTx, fnClearPending = function (){console.log(logPrefix, 'fnClearPending dummy function.');});
+            coinProcessing(exampleTx, fnClearPending = function (){console.log(logPrefix, 'fnClearPending dummy function.');});
         }
     }
 }
 
-function coinProcessing(){
-    
-    function clearWithdrawal(){
-        //clear pending_withdrawal
-    }
-
-    function processThis (withdrawalSet, fnClearPending){//run transaction
+function coinProcessing(withdrawalSet, fnClearPending){//run transaction
 //    this.callback = callback; on hold while alternatives are considered
-        if (withdrawalSet.hasOwnProperty('withdrawals') != true){
-            //console.log("No withdrawals found (withdrawalSet does not have property 'withdrawals')");
-            console.log(logPrefix, 'ERROR: invalid withdrawalSet:', withdrawalSet);
-            return false;
-        }
-        console.log(logPrefix, 'valid object:', withdrawalSet.hasOwnProperty('withdrawals'));
-        for (i=0; i < withdrawalSet.withdrawals.length; i++){
-            if(coinDaemons.hasOwnProperty(withdrawalSet.withdrawals[i].currency)){
-                validation = validateAddress(withdrawalSet.withdrawals[i], fnClearPending);
-            }else{
-                console.log(logPrefix, 'ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(rTxId='+ withdrawalSet.withdrawals[i].ripple_transaction_id + ') does not exist in cryptocurrencies.json. Skipping.');
-                continue;
-            }
+    if (withdrawalSet.hasOwnProperty('withdrawals') != true){
+        //console.log("No withdrawals found (withdrawalSet does not have property 'withdrawals')");
+        console.log(logPrefix, 'ERROR: invalid withdrawalSet:', withdrawalSet);
+        return false;
+    }
+    console.log(logPrefix, 'valid object:', withdrawalSet.hasOwnProperty('withdrawals'));
+    for (i=0; i < withdrawalSet.withdrawals.length; i++){
+        if(coinDaemons.hasOwnProperty(withdrawalSet.withdrawals[i].currency)){
+            validation = validateAddress(withdrawalSet.withdrawals[i], fnClearPending);
+        }else{
+            console.log(logPrefix, 'ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(rTxId='+ withdrawalSet.withdrawals[i].ripple_transaction_id + ') does not exist in cryptocurrencies.json. Skipping.');
+            continue;
         }
     }
+return 0;
 }
+
 
 
 
