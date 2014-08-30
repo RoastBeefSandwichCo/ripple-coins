@@ -32,9 +32,8 @@ function selfTest(testLevel, testSelect){ //has not been kept up. Some functions
     if (testSelect != ''){
         if (testSelect.indexOf('tx' >0)){
             console.log(sep, logPrefix, 'Testing coinDaemon method calls using an example transaction. THIS WILL SEND CRYPTO so you should be on testnet!!!', sep);
-            procTest = new transactions();
-            procTest.loadCryptoConfig();
-            procTest.processThis(exampleTx, fnClearPending = function (){console.log(logPrefix, 'fnClearPending dummy function.');});
+            testDaemons = new transactions();
+            coinProcessing.processThis(exampleTx, fnClearPending = function (){console.log(logPrefix, 'fnClearPending dummy function.');});
         }
     }
 }

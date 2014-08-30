@@ -3,6 +3,7 @@
 var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin greatly simplifies interfacing with coin daemons
 var coins = require ("./cryptocurrencies.json");//coin configurations
 var sep = '\n--------------------------------------------------------\n';
+var coinDaemons = {};
 var logPrefix = 'coin-daemons';
 console.log(logPrefix);
 
@@ -27,7 +28,7 @@ return coinDaemons;
 }
 
 //for testing
-var coinDaemons = loadCryptoConfig();
+coinDaemons = loadCryptoConfig();
 for (var each in coinDaemons){
   console.log(logPrefix,each);
 }
