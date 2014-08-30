@@ -5,14 +5,15 @@ var bitcoin = require ('bitcoin'); //https://www.npmjs.org/package/bitcoin great
 var coins = require ("./cryptocurrencies.json");//coin configurations
 var coinDaemons = require ("./coin-daemons.js");
 var transactions = require ("./lib/outgoing-bridge.js");
-//var coinDaemons = {};
-sep = '\n--------------------------------------------------------\n';
-logPrefix = 'process-withdrawal';
+transactions.coinDaemons = coinDaemons; //validateAddress function needs coinDaemons object
+var sep = '\n--------------------------------------------------------\n';
+var logPrefix = 'process-withdrawal';
+
 //keeping this around since it also shows rpc methods available
 function showCollection(objCollection){//shows properties of objects in a collection. Like port/host/userpass of each coin in cryptocurrencies.json
     console.log(logPrefix, 'selfTest!');
     for(var obj in objCollection){
-        console.log(logprefix, 'obj:' + obj, '\ncoins[obj]:\n', objCollection[obj],'\n');
+        console.log(logPrefix, 'obj:' + obj, '\ncoins[obj]:\n', objCollection[obj],'\n');
         for (var propt in objCollection[obj]){
             console.log(logPrefix, 'obj[propt]:',propt, '\ncoins[obj[propt]]:' , objCollection[obj][propt],'\n');
         }
@@ -32,23 +33,30 @@ function selfTest(testLevel, testSelect){ //has not been kept up. Some functions
     if (testSelect != ''){
         if (testSelect.indexOf('tx' >0)){
             console.log(sep, logPrefix, 'Testing coinDaemon method calls using an example transaction. THIS WILL SEND CRYPTO so you should be on testnet!!!', sep);
-            testDaemons = new transactions();
             coinProcessing(exampleTx, fnClearPending = function (){console.log(logPrefix, 'fnClearPending dummy function.');});
         }
     }
 }
 
 function coinProcessing(withdrawalSet, fnClearPending){//run transaction
-//    this.callback = callback; on hold while alternatives are considered
     if (withdrawalSet.hasOwnProperty('withdrawals') != true){
         //console.log("No withdrawals found (withdrawalSet does not have property 'withdrawals')");
         console.log(logPrefix, 'ERROR: invalid withdrawalSet:', withdrawalSet);
         return false;
     }
     console.log(logPrefix, 'valid object:', withdrawalSet.hasOwnProperty('withdrawals'));
-    for (i=0; i < withdrawalSet.withdrawals.length; i++){
-        if(coinDaemons.hasOwnProperty(withdrawalSet.withdrawals[i].currency)){
-            validation = validateAddress(withdrawalSet.withdrawals[i], fnClearPending);
+    for (i=0; i < withdrawalSet.withdrawals.length; i++){ //for each withdrawal
+        if(coinDaemons.hasOwnProperty(withdrawalSet.withdrawals[i].currency)){ //if coinDaemon exists for the currency
+            validation = transactions.validateAddress(withdrawalSet.withdrawals[i], fnClearPending); //validate address
+            if (validation != true) {
+                console.log(logPrefix, 'address NOT VALIDATED. See output above this line.')
+                return false;
+            }
+            else if (validation == true) {
+                console.log(logPrefix, 'address VALIDATED');
+                fnClearPending(true); //TODO: check what args this really takes
+            }
+            //IMPORTANT!!: this just quits after validating address. callback needs to direct to sendTx
         }else{
             console.log(logPrefix, 'ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(rTxId='+ withdrawalSet.withdrawals[i].ripple_transaction_id + ') does not exist in cryptocurrencies.json. Skipping.');
             continue;
@@ -68,8 +76,6 @@ console.log(logPrefix, 'runSelfTest:', runSelfTest);
 console.log(logPrefix, 'testLevel=', testLevel);
 console.log(logPrefix, 'testSelect:', testSelect);
 
-
-
 if (runSelfTest == true){
     this.fnClearPending = function (){console.log(logPrefix, 'fnClearPending dummy function.');}
 
@@ -77,4 +83,4 @@ if (runSelfTest == true){
     selfTest(testLevel, testSelect);
 }
 
-module.exports = transactions;
+//module.exports = transactions;

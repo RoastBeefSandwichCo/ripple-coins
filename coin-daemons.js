@@ -5,6 +5,7 @@ var coins = require ("./cryptocurrencies.json");//coin configurations
 var sep = '\n--------------------------------------------------------\n';
 var coinDaemons = {};
 var logPrefix = 'coin-daemons';
+var runSelfTest = false;
 console.log(logPrefix);
 
 function fnClearPending (){
@@ -27,13 +28,13 @@ loadCryptoConfig = function (){
 return coinDaemons;
 }
 
-//for testing
-coinDaemons = loadCryptoConfig();
-for (var each in coinDaemons){
-  console.log(logPrefix,each);
+if (runSelfTest == true){
+  coinDaemons = loadCryptoConfig();
+  for (var each in coinDaemons){
+    console.log(logPrefix,each);
+  }
+  var thisWithdrawal = require ("./exampleTX.json")
+  console.log(thisWithdrawal);
 }
-
-var thisWithdrawal = require ("./exampleTX.json")
-console.log(thisWithdrawal);
 
 module.exports = loadCryptoConfig();
