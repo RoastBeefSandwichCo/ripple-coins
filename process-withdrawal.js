@@ -59,7 +59,7 @@ function coinProcessing(withdrawalSet, fnClearPending){//run transaction
                 if (validation == true) {
                     console.log(logPrefix, 'address VALIDATED:', curr, addr);
                     transactions.sendTx(withdrawalObj, true, fnClearPending);
-                    fnClearPending(true); //TODO: change to real function
+                    //fnClearPending(true); //callback is apiQuery(dest, callback, argsIn){
                 }
             });
         }else{
