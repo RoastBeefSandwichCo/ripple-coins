@@ -5,7 +5,7 @@
             "host" : "68.225.165.227",
             "rpcusername" : "PbtcDevUsr",
             "rpcpassword" : "FkiiBrco3tL8uaXpxxYExesroshSuew7skPEfMYfaFhs",
-            "port" : 8333,
+            "port" : 8332,
             "maxdailypaymenttotal" : 2
     },
     "DOGE" : {
@@ -14,7 +14,7 @@
             "host" : "68.225.165.227",
             "rpcusername" : "PdogeDevUsr",
             "rpcpassword" : "5SMKjzXvoDKUVNo8ZNNHnQpjvdLP4oz4uokXwwVAi2r5",
-            "port" : 9333,
+            "port" : 8342,
             "maxdailypaymenttotal" : 2
     },
     "LTC" : {
@@ -23,7 +23,7 @@
             "host" : "68.225.165.227",
             "rpcusername" : "PltcDevUsr",
             "rpcpassword" : "2ivRBPxGZ5WAZRq2JwSeiD1DyNgk4rWbRfC312YNvjJR",
-            "port" : 22556,
+            "port" : 9332,
             "maxdailypaymenttotal" : 2
     },
     "PHC" : {
@@ -32,7 +32,7 @@
             "host" : "68.225.165.227",
             "rpcusername" : "phcDevUsr",
             "rpcpassword" : "ACoDrcojLGbAHFnbDGCi3KB5nhBpBbkurnW2W3jNNQTN",
-            "port" : 18696,
+            "port" : 18694,
             "maxdailypaymenttotal" : 2
     }
 
