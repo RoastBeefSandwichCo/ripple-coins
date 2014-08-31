@@ -48,11 +48,11 @@ function coinProcessing(withdrawalSet, fnClearPending){//run transaction
     for (i=0; i < withdrawalSet.withdrawals.length; i++){ //for each withdrawal
         currency = withdrawalSet.withdrawals[i].currency;
         if(coinDaemons.hasOwnProperty(currency)){ //if coinDaemon exists for the currency
-            console.log(logPrefix, '[', currency, ']', 'on', coinDaemons[currency].port, '(obj:', coinDaemons[currency],')');//debug info
+            console.log(logPrefix, '[', currency, ']', 'on', coinDaemons[currency]['rpc']['opts'].port);//, '(obj:', coinDaemons[currency],')');//debug info
             validation = transactions.validateAddress(withdrawalSet.withdrawals[i], fnClearPending); //validate address
             if (validation != true) {
                 console.log(logPrefix, 'address NOT VALIDATED. See output above this line.')
-                return false;
+                continue; //NEEEEEEEXT!
             }
             else if (validation == true) {
                 console.log(logPrefix, 'address VALIDATED');
