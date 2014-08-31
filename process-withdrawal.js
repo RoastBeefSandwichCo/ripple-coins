@@ -88,4 +88,6 @@ if (runSelfTest == true){
     selfTest(testLevel, testSelect);
 }
 
-//module.exports = transactions;
+module.exports = {
+    processThis : coinProcessing
+}

@@ -4,7 +4,8 @@
 
 require ("console").log;
 var apiQuery = require ("./api-query.js");
-var processing = require ("./process-withdrawal.js");
+//var processing = require ("./process-withdrawal.js");
+txProcessor = require ("./process-withdrawal.js");
 logprefix = 'withdrawal-manager';
 
 var options = {//move to config
@@ -21,8 +22,8 @@ var options = {//move to config
 
 var selfTest = 1;
 pollOrListen = ''; //if set to anything other than 'listen', module polls api every second ... move to config
-txProcessor = new processing;
-txProcessor.loadCryptoConfig();
+//txProcessor = new processing;
+//processing.loadCryptoConfig(); handled in process-withdrawal. perhaps move back.
 
 function clearWithdrawal(id){
     console.log (logprefix, 'clearWithdrawal called', id);
