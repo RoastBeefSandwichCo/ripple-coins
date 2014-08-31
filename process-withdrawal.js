@@ -54,8 +54,9 @@ function coinProcessing(withdrawalSet, fnClearPending){//run transaction
                 console.log(logPrefix, 'address NOT VALIDATED. See output above this line.')
                 continue; //NEEEEEEEXT!
             }
-            else if (validation == true) {
+            if (validation == true) {
                 console.log(logPrefix, 'address VALIDATED');
+                this.sendTx(thisWithdrawal, true, fnClearPending);
                 fnClearPending(true); //TODO: check what args this really takes
             }
             //IMPORTANT!!: this just quits after validating address. callback needs to direct to sendTx
