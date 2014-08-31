@@ -47,23 +47,26 @@ function coinProcessing(withdrawalSet, fnClearPending){//run transaction
     console.log(logPrefix, 'valid object:', withdrawalSet.hasOwnProperty('withdrawals'));
     for (i=0; i < withdrawalSet.withdrawals.length; i++){ //for each withdrawal
         currency = withdrawalSet.withdrawals[i].currency;
+        address = withdrawalSet.withdrawals[i].external_account_id;
         if(coinDaemons.hasOwnProperty(currency)){ //if coinDaemon exists for the currency
             console.log(logPrefix, '[', currency, ']', 'on', coinDaemons[currency]['rpc']['opts'].port);//, '(obj:', coinDaemons[currency],')');//debug info
-            validation = transactions.validateAddress(withdrawalSet.withdrawals[i], fnClearPending); //validate address
-            if (validation != true) {
-                console.log(logPrefix, 'address NOT VALIDATED. See output above this line.')
-                continue; //NEEEEEEEXT!
-            }
-            if (validation == true) {
-                console.log(logPrefix, 'address VALIDATED');
-                this.sendTx(thisWithdrawal, true, fnClearPending);
-                fnClearPending(true); //TODO: check what args this really takes
-            }
-            //IMPORTANT!!: this just quits after validating address. callback needs to direct to sendTx
+            transactions.validateAddress(withdrawalSet.withdrawals[i], fnClearPending, callback = function (validation, curr, addr){ //validate address
+                console.log('validation:>>',validation);
+                if (validation != true) {
+                    console.log(logPrefix, 'address NOT VALIDATED. See output above this line.')
+                    //continue; //NEEEEEEEXT!
+                }
+                if (validation == true) {
+                    console.log(logPrefix, 'address VALIDATED:', curr, addr);
+//                    transactions.sendTx(withdrawalSet.withdrawals[i], true, fnClearPending);
+                    fnClearPending(true); //TODO: check what args this really takes
+                }
+                //IMPORTANT!!: this just quits after validating address. callback needs to direct to sendTx
+            });
         }else{
-            console.log(logPrefix, 'ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(rTxId='+ withdrawalSet.withdrawals[i].ripple_transaction_id + ') does not exist in cryptocurrencies.json. Skipping.');
-            continue;
-        }
+        console.log(logPrefix, 'ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(rTxId='+ withdrawalSet.withdrawals[i].ripple_transaction_id + ') does not exist in cryptocurrencies.json. Skipping.');
+    //    continue;
+        };
     }
 return 0;
 }
