@@ -4,7 +4,7 @@
       "data": null,
       "id": 79,
       "amount": "0.00000009",
-      "currency": "PHC",
+      "currency": "DOGE",
       "deposit": false,
       "external_account_id": "mkkJyeoyNokouRwKvoq3fLCpSMHj9m6dJk",
       "status": "queued",
@@ -29,5 +29,3 @@
   ]
 
 }
-
-
