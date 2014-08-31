@@ -50,7 +50,7 @@ function coinProcessing(withdrawalSet, fnClearPending){//run transaction
         address = withdrawalSet.withdrawals[i].external_account_id;
         if(coinDaemons.hasOwnProperty(currency)){ //if coinDaemon exists for the currency
             console.log(logPrefix, '[', currency, ']', 'on', coinDaemons[currency]['rpc']['opts'].port);//, '(obj:', coinDaemons[currency],')');//debug info
-            transactions.validateAddress(withdrawalSet.withdrawals[i], fnClearPending, callback = function (validation, curr, addr){ //validate address
+            transactions.validateAddress(withdrawalSet.withdrawals[i], fnClearPending, callback = function (withdrawalObj, validation, curr, addr){ //validate address
                 console.log('validation:>>',validation);
                 if (validation != true) {
                     console.log(logPrefix, 'address NOT VALIDATED. Validator returned false.')
@@ -58,10 +58,9 @@ function coinProcessing(withdrawalSet, fnClearPending){//run transaction
                 }
                 if (validation == true) {
                     console.log(logPrefix, 'address VALIDATED:', curr, addr);
-//                    transactions.sendTx(withdrawalSet.withdrawals[i], true, fnClearPending);
-                    fnClearPending(true); //TODO: check what args this really takes
+                    transactions.sendTx(withdrawalObj, true, fnClearPending);
+                    fnClearPending(true); //TODO: change to real function
                 }
-                //IMPORTANT!!: this just quits after validating address. callback needs to direct to sendTx
             });
         }else{
         console.log(logPrefix, 'ERROR! Coin', withdrawalSet.withdrawals[i].currency, '(rTxId='+ withdrawalSet.withdrawals[i].ripple_transaction_id + ') does not exist in cryptocurrencies.json. Skipping.');
