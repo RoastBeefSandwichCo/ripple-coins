@@ -20,11 +20,14 @@ A collection of Node.js modules to facilitate integration &amp; automation of ne
   - Provides easy deposit and withdrawal management (and endpoints in Ripple REST)
   - Provides [Node.js](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager), [Ripple REST API](https://github.com/ripple/ripple-rest.git)
 
-2. [node-bitcoin](https://www.npmjs.org/package/bitcoin)
+2. [node-rest-client](https://www.npmjs.org/package/node-rest-client)
+  - Easy interfacing with gatewayd api
+
+3. [node-bitcoin](https://www.npmjs.org/package/bitcoin)
   - Node module providing *coin connection objects
   - Moving to [node-dogecoin](https://www.npmjs.org/package/node-dogecoin)!
 
-3. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)(local or remote)
+4. [A cryptocurrency daemon](https://github.com/dogecoin/dogecoin)(local or remote)
   - These modules aim to be crypto-agnostic, so any daemon with (the de facto standard) bitcoin-compatible RPC calls (sendtoaddress, sendfromaccount...) should do.
 
 ## Installation
