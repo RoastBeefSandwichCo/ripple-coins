@@ -46,7 +46,9 @@ function coinProcessing(withdrawalSet, fnClearPending){//run transaction
     }
     console.log(logPrefix, 'valid object:', withdrawalSet.hasOwnProperty('withdrawals'));
     for (i=0; i < withdrawalSet.withdrawals.length; i++){ //for each withdrawal
-        if(coinDaemons.hasOwnProperty(withdrawalSet.withdrawals[i].currency)){ //if coinDaemon exists for the currency
+        currency = withdrawalSet.withdrawals[i].currency;
+        if(coinDaemons.hasOwnProperty(currency)){ //if coinDaemon exists for the currency
+            console.log(logPrefix, '[', currency, ']', 'on', coinDaemons[currency].port);//debug info
             validation = transactions.validateAddress(withdrawalSet.withdrawals[i], fnClearPending); //validate address
             if (validation != true) {
                 console.log(logPrefix, 'address NOT VALIDATED. See output above this line.')
