@@ -1,6 +1,6 @@
 Documentation of currently unhandled errors
 
-Daemon offline looks like this: (also rpc misconfiguration?)
+Daemon offline, bad connection settings:
 
 errors: { [Error: connect ECONNREFUSED]
   code: 'ECONNREFUSED',
@@ -9,7 +9,12 @@ errors: { [Error: connect ECONNREFUSED]
 isValid: undefined 
 resHeaders undefined
 
+daemon syncing, bad connection settings:
+econnreset
 
-Rest offline
+Unauthorized:
+ERROR: { [Error: Invalid params, response status code: 401] code: -32602 }
 
 
+TODO:
+gatewayd offline

@@ -53,7 +53,7 @@ function coinProcessing(withdrawalSet, fnClearPending){//run transaction
             transactions.validateAddress(withdrawalSet.withdrawals[i], fnClearPending, callback = function (validation, curr, addr){ //validate address
                 console.log('validation:>>',validation);
                 if (validation != true) {
-                    console.log(logPrefix, 'address NOT VALIDATED. See output above this line.')
+                    console.log(logPrefix, 'address NOT VALIDATED. Validator returned false.')
                     //continue; //NEEEEEEEXT!
                 }
                 if (validation == true) {
