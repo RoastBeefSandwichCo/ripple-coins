@@ -5,7 +5,7 @@
 require ("console").log;
 var apiQuery = require ("./api-query.js");
 var processing = require ("./process-withdrawal.js");
-logprefix = 'withdrawal-manager'; 
+logprefix = 'withdrawal-manager';
 
 var options = {//move to config
     trace: false,
@@ -44,6 +44,7 @@ console.log(logprefix, 'getting. dest=',dest);
     apiQuery(dest, processWithdrawal);
 };
 
+//make this the main function and export it
 console.log(logprefix, 'pollOrListen', pollOrListen);//get from config
 if (pollOrListen == "listen"){//create stream listener
     console.log(logprefix, 'listening');
@@ -61,5 +62,3 @@ if (sometestvar == true){
     var exampleTx = require("./exampleTX.json");
     processWithdrawal(exampleTx);
 }
-
-
