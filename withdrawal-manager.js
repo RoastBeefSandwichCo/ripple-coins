@@ -5,6 +5,7 @@
 require ("console").log;
 var apiQuery = require ("./api-query.js");
 //var processing = require ("./process-withdrawal.js");
+runSelfTest = false;
 txProcessor = require ("./process-withdrawal.js");
 logprefix = 'withdrawal-manager';
 
@@ -58,8 +59,7 @@ if (pollOrListen == "listen"){//create stream listener
 }
 //self-test only
 //var exampleTx = require("./exampleTX.json");
-sometestvar = true;
-if (sometestvar == true){
+if (runSelfTest == true){
     var exampleTx = require("./exampleTX.json");
     processWithdrawal(exampleTx);
 }

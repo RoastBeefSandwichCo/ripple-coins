@@ -9,6 +9,12 @@ transactions.coinDaemons = coinDaemons; //validateAddress function needs coinDae
 var sep = '\n--------------------------------------------------------\n';
 var logPrefix = 'process-withdrawal';
 
+//begin test vars
+runSelfTest = false;
+testLevel = 0;
+testSelect = 'tx'; //options: tx = test transactions. BE ON TESTNET.
+//end test vars
+
 //keeping this around since it also shows rpc methods available
 function showCollection(objCollection){//shows properties of objects in a collection. Like port/host/userpass of each coin in cryptocurrencies.json
     console.log(logPrefix, 'selfTest!');
@@ -73,10 +79,6 @@ return 0;
 
 
 
-runSelfTest = true;
-testLevel = 0;
-testSelect = 'tx'; //options: tx = test transactions. BE ON TESTNET.
-//end test vars
 console.log(logPrefix, 'runSelfTest:', runSelfTest);
 console.log(logPrefix, 'testLevel=', testLevel);
 console.log(logPrefix, 'testSelect:', testSelect);
