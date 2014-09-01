@@ -44,8 +44,7 @@ Run this tests with mocha
 
 ## Usage
  - During development
-   - While testing deposits/withdrawals, Gatewayd must be running. And a coin daemon. Duh.
-   - Run with "node module-being-tested". withdrawal-manager.js is the main module for now.
+   - With Gatewayd, started, execute `node withdrawal-manager.js` to start 
 
 ##Processes:
  1. Automatically pay out externally (cryptocurrency to user crypto address) on notice of withdrawal
