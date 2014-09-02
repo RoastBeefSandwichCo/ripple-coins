@@ -43,8 +43,7 @@ Run this tests with mocha
     mocha -R spec test/
 
 ## Usage
- - During development
-   - With Gatewayd, started, execute `node withdrawal-manager.js` to start 
+   - With Gatewayd started, execute `node withdrawal-manager.js`.
 
 ##Processes:
  1. Automatically pay out externally (cryptocurrency to user crypto address) on notice of withdrawal
