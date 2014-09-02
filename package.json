@@ -1,31 +1,26 @@
 {
-  "name": "crypto-coins-gatewayd-plugin",
-  "version": "0.1.0",
-  "description": "Node.js modules to facilitate integration & automation of cryptocurrency coins into a ripple gateway
-"
-  "main": "main.js",
-  "directories": {
-    "test": "test"
+  "name": "crypto-coins-outbound-plugin",
+  "version": "1.0",
+  "description": "Automated asset-withdrawal manager (outbound bridge) for gatewayd",
+  "author": "Nino Brooks ninobrooks@gmail.com",
+  "contributors": [{
+    "name": "Jacob McShane",
+    "email": "jimster6543@gmail.com"
   },
-  "dependencies": {
-    "blockchain-account-monitor": "^0.2.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "npm test"
-  },
+  {
+    "name": "Steven Zeiler",
+    "email": "stevenzeiler@gmail.com"
+  }],
+  "main": "withdrawal-manager.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/gatewayd/crytpo-coins-bridge-plugin.git"
+    "url": "https://github.com/RoastBeefSandwichCo/ripple-coins.git"
   },
-  "keywords": [
-    "ripple",
-    "bitcoin",
-    "gatewayd"
-  ],
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gatewayd/crytpo-coins-bridge-plugin/issues"
+  "dependencies": {
+    "bitcoin": "^2.2.0",
+    "node-rest-client": ">=1.0",
   },
-  "homepage": "https://github.com/gatewayd/crytpo-coins-bridge-plugin"
+    "analyze": "true",
+    "license": "Affero GPL 3"
 }
+
