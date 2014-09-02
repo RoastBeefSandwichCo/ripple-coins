@@ -1,11 +1,39 @@
 {
+    "BTC" : {
+            "coindaemon" : "bitcoind",
+            "sendfrom" : "1AuJLizJ782SV2oBd5cAaAzgGNa3bjpWum",
+            "host" : "68.225.165.227",
+            "rpcusername" : "PbtcDevUsr",
+            "rpcpassword" : "FkiiBrco3tL8uaXpxxYExesroshSuew7skPEfMYfaFhs",
+            "port" : 8332,
+            "maxdailypaymenttotal" : 2
+    },
+    "DOGE" : {
+            "coindaemon" : "dogecoind",
+            "sendfrom" : "DLJjscQjaUDHfgQjW6jPU6wrge9fmPaNzT",
+            "host" : "68.225.165.227",
+            "rpcusername" : "PdogeDevUsr",
+            "rpcpassword" : "5SMKjzXvoDKUVNo8ZNNHnQpjvdLP4oz4uokXwwVAi2r5",
+            "port" : 8342,
+            "maxdailypaymenttotal" : 2
+    },
+    "LTC" : {
+            "coindaemon" : "litecoind",
+            "sendfrom" : "LdxLjm2VTRdEGFvdSGWwWJ4cYmYo4hWQnA",
+            "host" : "68.225.165.227",
+            "rpcusername" : "PltcDevUsr",
+            "rpcpassword" : "2ivRBPxGZ5WAZRq2JwSeiD1DyNgk4rWbRfC312YNvjJR",
+            "port" : 9332,
+            "maxdailypaymenttotal" : 2
+    },
     "PHC" : {
             "coindaemon" : "phcoind",
             "sendfrom" : "PG9J1iziEyg6f8TW53oJU3NEC68H2aJ4BW",
-            "rpcusername" : "somename",
-            "rpcpassword" : "4fvBAs6aTQVX2cZ19SAqch2XkZnr6by9EZhGudqtyYqf",
-            "port" : 4150,
+            "host" : "68.225.165.227",
+            "rpcusername" : "phcDevUsr",
+            "rpcpassword" : "ACoDrcojLGbAHFnbDGCi3KB5nhBpBbkurnW2W3jNNQTN",
+            "port" : 18694,
             "maxdailypaymenttotal" : 2
     }
-}
 
+}
