@@ -2,7 +2,7 @@
   "name": "crypto-coins-gatewayd-plugin",
   "version": "0.1.0",
   "description": "Node.js modules to facilitate integration & automation of cryptocurrency coins into a ripple gateway",
-"contributors": [{
+  "contributors": [{
     "name": "Jacob McShane",
     "email": "jimster6543@gmail.com"
   },
@@ -14,7 +14,6 @@
     "name": "Brooks",
     "email": "ninobrooks@gmail.com"
   }],
-
   "main": "main.js",
   "directories": {
     "test": "test"
