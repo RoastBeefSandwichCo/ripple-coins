@@ -62,7 +62,7 @@ Run this tests with mocha
  - Ninobrooks is a javascript noob and makes no pretense that his code is elegant or purdy. He in fact welcomes (begs) others to clean it up and improve it. The only reason he's doing this in the first place is because far more talented people have had more pressing matters to attend to. Also, he's going to stop talking about himself in the third person.
 
 ##Thanks!
- - To everyone who donates, contributes code, or has developed a module I'm using. In particular (and besides Ripple Labs in general), thank you Steven Zeiler and others for all your work on gatewayd, and freewil and company for node-bitcoin which has saved me quite some work.
+ - To everyone who donates, contributes code, or has developed a module I'm using. In particular (and besides Ripple Labs in general), thank you @StevenZeiler and others for all your work on gatewayd, and freewil and company for node-bitcoin which has saved me quite some work.
 
  - [The Rock Trading Ltd](https://www.therocktrading.com)
 
