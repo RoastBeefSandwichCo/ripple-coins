@@ -64,6 +64,15 @@ Run this tests with mocha
 ##Thanks!
  - To everyone who donates, contributes code, or has developed a module I'm using. In particular (and besides Ripple Labs in general), thank you Steven Zeiler and others for all your work on gatewayd, and freewil and company for node-bitcoin which has saved me quite some work.
 
+ - [The Rock Trading Ltd](https://www.therocktrading.com)
+
+Besides being my personal favorite exchange, funding from The Rock was directly responsible for major hardware upgrades. A pair of SSDs in our best server are now named "Rock 1" and "Rock 2".  The Rock is a UK-based *ripple-integrated* exchange and gateway (XRPGA Gateway ftw!) with crypto-fiat trading for EUR, USD, BTC, LTC, DOGE and more, *and* derivatives. Check them out, sign up, use my promoter code :D
+therocktrading.com/referral/79
+Thanks, Rock. Your donations came at a critical time for us. Your private encouragement via correspondence and promotion of our efforts on Twitter are appreciated, too!
+
+ - Ripple
+(drafting)
+
 ##Donate
   - Presently, raising funds for hardware upgrades. If you would like to donate hardware, please contact me directly!
   - BTC 1K2BZ3XxpRNiNissEHoVcrCv3tEqEsHP28
