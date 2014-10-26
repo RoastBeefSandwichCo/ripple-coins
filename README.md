@@ -74,10 +74,12 @@ Thanks, Rock. Your donations came at a critical time for us. Your private encour
 (drafting)
 
 ##Donate
-  - Presently, raising funds for hardware upgrades. If you would like to donate hardware, please contact me directly!
-  - BTC 1K2BZ3XxpRNiNissEHoVcrCv3tEqEsHP28
-  - LTC LgaoNgSNxJwyno61edyRUz2ZKFkgPQYV5t
-  - DOGE D7U9VyJsStZ23MPgTr2TxGLj4bdfs69b8e
-  - Ripples!(XRP) rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs
-  - Ironically(?), at least one dev is being paid in Stellars. Contribute those, too! User: ninobrooks
 
+Help us with development costs (pretty please)! Ways to contribute:
+  - Ripples!(XRP) rPyBms1XZtNbF4UFGgM1dDWTmtfDmsfGNs
+  - PayPal: darthcookient@gmail.com
+  - Bitcoin 1K2BZ3XxpRNiNissEHoVcrCv3tEqEsHP28
+  - Litecoin LgaoNgSNxJwyno61edyRUz2ZKFkgPQYV5t
+  - Dogecoin D7U9VyJsStZ23MPgTr2TxGLj4bdfs69b8e
+  - Stellar (STR): ninobrooks
+  - If you would like to donate hardware, remote servers or in any other way, please contact me directly!
